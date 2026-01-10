@@ -1,1 +1,593 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hur länge orkar Daniel? ⛷️</title>
+  <style>
+    :root{
+      --rexel-blue:#003A8F;
+      --rexel-blue-2:#0B4DB8;
+      --bg:#F4F7FB;
+      --card:#FFFFFF;
+      --text:#0B1220;
+      --muted:#5A6B85;
+      --border:#D9E2F1;
+      --accent:#FFC928; /* liten “gul accent” */
+      --danger:#C62828;
+      --ok:#1B7F4B;
+      --shadow: 0 10px 25px rgba(0,0,0,.08);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 50% -100px, rgba(0,58,143,.18), transparent 60%),
+                  linear-gradient(180deg, #ffffff 0%, var(--bg) 60%);
+      color:var(--text);
+    }
+
+    .topbar{
+      background: linear-gradient(90deg, var(--rexel-blue), var(--rexel-blue-2));
+      color:#fff;
+      padding:14px 16px;
+      position: sticky;
+      top:0;
+      z-index:10;
+      box-shadow: 0 6px 16px rgba(0,0,0,.12);
+    }
+    .topbar-inner{
+      max-width:980px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .brand h1{
+      font-size:15px;
+      margin:0;
+      font-weight:700;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand .pill{
+      font-size:12px;
+      padding:4px 8px;
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:999px;
+      opacity:.95;
+      white-space:nowrap;
+    }
+
+    .container{
+      max-width:980px;
+      margin:18px auto 40px;
+      padding:0 16px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:16px;
+    }
+    @media (max-width: 860px){
+      .container{grid-template-columns:1fr}
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card-header{
+      padding:18px 18px 10px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .icon{
+      width:52px;
+      height:52px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background: rgba(0,58,143,.08);
+      border:1px solid rgba(0,58,143,.18);
+      flex:0 0 auto;
+    }
+    .titleblock h2{
+      margin:0;
+      font-size:20px;
+      line-height:1.2;
+    }
+    .titleblock p{
+      margin:8px 0 0;
+      color:var(--muted);
+      line-height:1.45;
+      font-size:14px;
+    }
+    .card-body{padding:0 18px 18px}
+
+    .cta-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .btn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding:12px 14px;
+      border-radius:12px;
+      font-weight:700;
+      letter-spacing:.2px;
+      font-size:14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      user-select:none;
+      transition: transform .05s ease, box-shadow .15s ease, background .15s ease;
+      box-shadow: 0 8px 18px rgba(0,0,0,.10);
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn-primary{
+      background: linear-gradient(90deg, var(--rexel-blue), var(--rexel-blue-2));
+      color:#fff;
+    }
+    .btn-ghost{
+      background:#fff;
+      color:var(--rexel-blue);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+    .btn-accent{
+      background: linear-gradient(90deg, #ffda4b, var(--accent));
+      color:#1e1e1e;
+    }
+
+    .form{
+      display:grid;
+      gap:12px;
+      margin-top:14px;
+    }
+    label{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      margin:0 0 6px;
+      font-weight:700;
+      letter-spacing:.15px;
+    }
+    input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      outline:none;
+      font-size:15px;
+      background:#fff;
+    }
+    input:focus{
+      border-color: rgba(0,58,143,.55);
+      box-shadow: 0 0 0 4px rgba(0,58,143,.10);
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 520px){
+      .grid-2{grid-template-columns:1fr}
+    }
+
+    .hint{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.45;
+      margin-top:4px;
+    }
+
+    .alert{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid;
+      display:none;
+      font-size:14px;
+      line-height:1.35;
+    }
+    .alert.ok{
+      display:block;
+      background: rgba(27,127,75,.08);
+      border-color: rgba(27,127,75,.25);
+      color: var(--ok);
+    }
+    .alert.err{
+      display:block;
+      background: rgba(198,40,40,.08);
+      border-color: rgba(198,40,40,.25);
+      color: var(--danger);
+    }
+
+    .rules{
+      padding:18px;
+      border-top:1px dashed var(--border);
+      background: linear-gradient(180deg, rgba(0,58,143,.03), transparent);
+    }
+    .rules h3{margin:0 0 8px; font-size:16px}
+    .rules ul{margin:0; padding-left:18px; color:var(--text)}
+    .rules li{margin:8px 0; color:var(--muted); line-height:1.45}
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(11,18,32,.55);
+      display:none;
+      padding:16px;
+      z-index:50;
+    }
+    .modal{
+      max-width:720px;
+      margin: 40px auto;
+      background:#fff;
+      border-radius:18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.2);
+    }
+    .modal-head{
+      padding:14px 16px;
+      background: linear-gradient(90deg, var(--rexel-blue), var(--rexel-blue-2));
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .modal-head h3{margin:0; font-size:15px}
+    .modal-body{padding:16px}
+    .close{
+      background: rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.25);
+      color:#fff;
+      border-radius:10px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:800;
+    }
+    .modal-backdrop.show{display:block}
+
+    .footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 16px 30px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+      text-align:center;
+    }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      padding:2px 6px;
+      border:1px solid var(--border);
+      border-bottom-width:2px;
+      border-radius:8px;
+      background:#fff;
+      color:var(--text);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="pill">Rexel-blått tema</div>
+        <h1>Daniel vs Dalarna – tidstips</h1>
+      </div>
+      <button class="btn btn-ghost" id="openRulesBtn" type="button">📜 Regler</button>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- LEFT: Hero -->
+    <section class="card">
+      <div class="card-header">
+        <div class="icon" aria-hidden="true" title="Vasalopps-ikon (Daniel edition)">
+          <!-- Enkel skid-ikon (placeholder). Byt gärna ut mot riktig “Daniel-ikon” senare. -->
+          <svg width="34" height="34" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 52c8 6 36 6 44 0" stroke="rgba(0,58,143,.9)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M18 44l12-18 8 6 12-10" stroke="rgba(0,58,143,.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="30" cy="18" r="6" stroke="rgba(0,58,143,.9)" stroke-width="4"/>
+            <path d="M28 24l-8 14" stroke="rgba(0,58,143,.9)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M34 26l8 10" stroke="rgba(0,58,143,.9)" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="titleblock">
+          <h2>⛷️ Hur länge orkar Daniel?</h2>
+          <p>
+            Daniel har laddat med blåbärssoppa, tejpade stavar och ett självförtroende som pendlar mellan
+            “jag är odödlig” och “varför finns uppförsbackar”.
+            <br><br>
+            Din uppgift: gissa <b>hur länge</b> han håller ut.
+          </p>
+
+          <div class="cta-row">
+            <button class="btn btn-accent" id="scrollToFormBtn" type="button">🎯 Gissa tid</button>
+            <button class="btn btn-primary" id="shareBtn" type="button">📲 Dela</button>
+          </div>
+
+          <p class="hint">
+            Tips: skriv tiden som <span class="kbd">HH:MM:SS</span> (t.ex. <span class="kbd">07:12:00</span>).
+            Gratis att delta. 1 gissning per person.
+          </p>
+        </div>
+      </div>
+
+      <div class="rules">
+        <h3>Snabbregler</h3>
+        <ul>
+          <li><b>Gratis</b>. Du gissar en gång.</li>
+          <li>Vinnare = den som är <b>närmast</b> Daniels officiella tid.</li>
+          <li>Om Daniel bryter: vi använder tiden vid <b>sista officiella kontroll</b>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- RIGHT: Form -->
+    <section class="card" id="guessCard">
+      <div class="card-header">
+        <div class="titleblock">
+          <h2>🧾 Lägg din gissning</h2>
+          <p>Fyll i namn, mobilnummer och din gissade tid. Du kan bara skicka in en gång på den här enheten.</p>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <form class="form" id="guessForm" autocomplete="on" novalidate>
+          <div class="grid-2">
+            <div>
+              <label for="name">Namn</label>
+              <input id="name" name="name" type="text" placeholder="Förnamn Efternamn" required />
+            </div>
+            <div>
+              <label for="phone">Mobilnummer</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="07XXXXXXXX" required />
+              <div class="hint">Används bara för att kontakta vinnaren och hindra fler gissningar.</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <label for="timeGuess">Gissad tid (HH:MM:SS)</label>
+              <input id="timeGuess" name="timeGuess" type="text" inputmode="numeric" placeholder="07:12:00" required />
+              <div class="hint">Du kan skriva eller klistra in. Vi validerar formatet.</div>
+            </div>
+            <div>
+              <label for="consent">Godkännande</label>
+              <input id="consent" name="consent" type="checkbox" style="width:auto; transform: scale(1.2); margin-right:10px;" required />
+              <span style="font-size:14px; color:var(--muted);">
+                Jag godkänner reglerna och att vi sparar mina uppgifter för att kunna kontakta vinnaren.
+              </span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" type="submit" id="submitBtn">✅ Skicka min gissning</button>
+
+          <div class="alert ok" id="okAlert"></div>
+          <div class="alert err" id="errAlert"></div>
+
+          <div class="hint" style="margin-top:10px;">
+            Admin/MVP: just nu sparas gissningen lokalt i din webbläsare. Vill ni samla alla gissningar centralt kan vi koppla
+            till Google Sheets eller en liten backend senare.
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    <div><b>Integritet:</b> Vi sparar namn och telefonnummer för att kunna kontakta vinnaren och administrera tävlingen. Raderas efter avslutad tävling.</div>
+  </div>
+
+  <!-- Rules Modal -->
+  <div class="modal-backdrop" id="rulesModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+      <div class="modal-head">
+        <h3 id="rulesTitle">📜 Spelregler – “Hur länge orkar Daniel?”</h3>
+        <button class="close" id="closeRulesBtn" type="button">Stäng ✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-top:0;color:var(--muted);line-height:1.6">
+          Enkelt, tydligt och utan krångel.
+        </p>
+
+        <h4 style="margin:16px 0 8px;">1) Så här gör du</h4>
+        <ol style="margin:0; padding-left:18px; color:var(--muted); line-height:1.6">
+          <li>Gissa Daniels tid i <b>HH:MM:SS</b>.</li>
+          <li>Fyll i namn + telefonnummer.</li>
+          <li>Skicka in – klart.</li>
+        </ol>
+
+        <h4 style="margin:16px 0 8px;">2) En gissning</h4>
+        <p style="margin:0;color:var(--muted);line-height:1.6">
+          Gratis att delta. Du får lämna <b>en (1)</b> gissning.
+        </p>
+
+        <h4 style="margin:16px 0 8px;">3) Hur räknas tiden?</h4>
+        <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.6">
+          <li>Går Daniel i mål → <b>officiell måltid</b> gäller.</li>
+          <li>Bryter Daniel → <b>tiden vid sista officiella kontrollen</b> gäller.</li>
+          <li>Vi använder arrangörens officiella tider/resultat.</li>
+        </ul>
+
+        <h4 style="margin:16px 0 8px;">4) Vinnare</h4>
+        <p style="margin:0;color:var(--muted);line-height:1.6">
+          Den som gissar <b>närmast</b> vinner priset. Vid exakt lika: först inskickad gissning vinner.
+        </p>
+
+        <h4 style="margin:16px 0 8px;">5) Personuppgifter</h4>
+        <p style="margin:0;color:var(--muted);line-height:1.6">
+          Namn och telefon används bara för att administrera tävlingen och kontakta vinnaren.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Helpers ---
+    const $ = (id) => document.getElementById(id);
+
+    function normalizePhone(phoneRaw){
+      return (phoneRaw || "").replace(/\s+/g, "").replace(/-/g, "");
+    }
+
+    function parseHHMMSS(s){
+      // Accept "H:MM:SS" or "HH:MM:SS"
+      const m = /^(\d{1,2}):([0-5]\d):([0-5]\d)$/.exec((s||"").trim());
+      if(!m) return null;
+      const h = Number(m[1]), mm = Number(m[2]), ss = Number(m[3]);
+      if(h > 30) return null; // sanity limit
+      return h*3600 + mm*60 + ss;
+    }
+
+    function formatHHMMSS(seconds){
+      const h = Math.floor(seconds/3600);
+      const m = Math.floor((seconds%3600)/60);
+      const s = seconds%60;
+      const pad = (n)=> String(n).padStart(2,"0");
+      return `${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+
+    // --- UI actions ---
+    const rulesModal = $("rulesModal");
+    $("openRulesBtn").addEventListener("click", ()=> rulesModal.classList.add("show"));
+    $("closeRulesBtn").addEventListener("click", ()=> rulesModal.classList.remove("show"));
+    rulesModal.addEventListener("click", (e)=>{
+      if(e.target === rulesModal) rulesModal.classList.remove("show");
+    });
+
+    $("scrollToFormBtn").addEventListener("click", ()=>{
+      $("guessCard").scrollIntoView({behavior:"smooth", block:"start"});
+      setTimeout(()=> $("timeGuess").focus(), 400);
+    });
+
+    $("shareBtn").addEventListener("click", async ()=>{
+      const text = "⛷️ Hur länge orkar Daniel? Gissa tiden (gratis) – närmast vinner pris!";
+      try{
+        if(navigator.share){
+          await navigator.share({ title: document.title, text, url: location.href });
+        }else{
+          await navigator.clipboard.writeText(location.href);
+          alert("Länken kopierad!");
+        }
+      }catch(_){
+        // do nothing
+      }
+    });
+
+    // --- Submission logic (localStorage MVP) ---
+    const STORAGE_KEY = "daniel-vasaloppet-guesses-v1";
+
+    function loadAllGuesses(){
+      try{
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      }catch(_){
+        return [];
+      }
+    }
+
+    function saveAllGuesses(list){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    }
+
+    function phoneAlreadyUsed(phone){
+      const all = loadAllGuesses();
+      return all.some(g => g.phone === phone);
+    }
+
+    function showOk(msg){
+      $("okAlert").textContent = msg;
+      $("errAlert").textContent = "";
+      $("okAlert").className = "alert ok";
+      $("errAlert").className = "alert err";
+      $("errAlert").style.display = "none";
+      $("okAlert").style.display = "block";
+    }
+
+    function showErr(msg){
+      $("errAlert").textContent = msg;
+      $("okAlert").textContent = "";
+      $("errAlert").className = "alert err";
+      $("okAlert").className = "alert ok";
+      $("okAlert").style.display = "none";
+      $("errAlert").style.display = "block";
+    }
+
+    function lockForm(){
+      ["name","phone","timeGuess","consent"].forEach(id => $(id).disabled = true);
+      $("submitBtn").disabled = true;
+      $("submitBtn").textContent = "🔒 Gissning inskickad";
+    }
+
+    // If user already submitted (any phone) on this device, lock (optional)
+    // If you prefer: only lock by phone, comment this out.
+    (function lockIfAnySubmitted(){
+      const all = loadAllGuesses();
+      if(all.length > 0){
+        // Keep form open if you want multiple different people on same phone:
+        // return;
+      }
+    })();
+
+    $("guessForm").addEventListener("submit", (e)=>{
+      e.preventDefault();
+
+      const name = ($("name").value || "").trim();
+      const phone = normalizePhone($("phone").value);
+      const timeStr = ($("timeGuess").value || "").trim();
+      const consent = $("consent").checked;
+
+      if(!name) return showErr("Skriv ditt namn.");
+      if(!phone || phone.length < 9) return showErr("Skriv ett giltigt mobilnummer.");
+      if(!consent) return showErr("Du måste godkänna reglerna för att delta.");
+
+      const seconds = parseHHMMSS(timeStr);
+      if(seconds === null) return showErr("Tiden måste vara i formatet HH:MM:SS (t.ex. 07:12:00).");
+
+      // En gissning per telefonnummer (på denna enhet)
+      if(phoneAlreadyUsed(phone)){
+        return showErr("Det här mobilnumret har redan lämnat en gissning på den här enheten.");
+      }
+
+      const all = loadAllGuesses();
+      const entry = {
+        name,
+        phone,
+        guess_seconds: seconds,
+        guess_time: formatHHMMSS(seconds),
+        created_at: new Date().toISOString()
+      };
+      all.push(entry);
+      saveAllGuesses(all);
+
+      showOk(`Klart! ✅ Din gissning är sparad: ${entry.guess_time}. Nu återstår bara att Daniel… står ut. 😅`);
+      lockForm();
+    });
+  </script>
+</body>
+</html>
 
