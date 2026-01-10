@@ -1026,6 +1026,116 @@ document.getElementById("toggleAllBtn")?.addEventListener("click", ()=>{
 
 // Kör direkt vid sidladdning
 updateDashboard();
+// ===== TID / NEDRÄKNING / BETTINGSTOPP =====
+let phaseInterval = null;
+
+function parseStartDateTime(str){
+  if(!str) return null;
+  const s = String(str).trim().replace(" ", "T");
+  const d = new Date(s);
+  if(Number.isNaN(d.getTime())) return null;
+  return d;
+}
+
+function formatClock(sec){
+  const h = Math.floor(sec/3600);
+  const m = Math.floor((sec%3600)/60);
+  const s = sec%60;
+  const pad = (n)=> String(n).padStart(2,"0");
+  return `${pad(h)}:${pad(m)}:${pad(s)}`;
+}
+
+function lockBetting(msg){
+  // Lås formulär
+  ["name","phone","timeGuess","consent"].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.disabled = true;
+  });
+  const btn = document.getElementById("submitBtn");
+  if(btn){
+    btn.disabled = true;
+    btn.textContent = "⛔ Betting stängd";
+  }
+  const err = document.getElementById("errAlert");
+  const ok = document.getElementById("okAlert");
+  if(err){ err.style.display="none"; }
+  if(ok){ ok.style.display="none"; }
+
+  // Text
+  const t = document.getElementById("gameStatusText");
+  const h = document.getElementById("gameStatusHint");
+  if(t) t.textContent = msg || "Betting är stängd.";
+  if(h) h.textContent = "";
+}
+
+function unlockBetting(){
+  ["name","phone","timeGuess","consent"].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.disabled = false;
+  });
+  const btn = document.getElementById("submitBtn");
+  if(btn){
+    btn.disabled = false;
+    btn.textContent = "✅ Skicka min gissning";
+  }
+}
+
+function setStatus(text, hint){
+  const t = document.getElementById("gameStatusText");
+  const h = document.getElementById("gameStatusHint");
+  if(t) t.textContent = text;
+  if(h) h.textContent = hint || "";
+}
+
+function startPhaseClock({startDate, closeDate, official_time}){
+  if(phaseInterval) clearInterval(phaseInterval);
+
+  const tick = ()=>{
+    const now = new Date();
+
+    // Slutresultatläge
+    if(official_time){
+      setStatus("🏁 Loppet är avgjort (officiell tid satt).", "Leaderboard visar slutställning.");
+      // Betting ska vara stängd
+      lockBetting("🏁 Betting stängd – loppet är avgjort.");
+      return;
+    }
+
+    // Om ingen starttid: bara tillåt betting
+    if(!startDate){
+      setStatus("🟢 Öppet för gissningar", "Starttid är inte satt ännu.");
+      unlockBetting();
+      return;
+    }
+
+    // Om bettingstopp saknas: anta att betting är öppen fram till start
+    const effectiveClose = closeDate || startDate;
+
+    if(now < effectiveClose){
+      // Före bettingstopp
+      const secLeft = Math.max(0, Math.floor((effectiveClose - now)/1000));
+      setStatus("🟢 Betting öppen", `Betting stänger om ${formatClock(secLeft)} (HH:MM:SS).`);
+      unlockBetting();
+      return;
+    }
+
+    if(now >= effectiveClose && now < startDate){
+      // Efter bettingstopp men före start
+      const secToStart = Math.max(0, Math.floor((startDate - now)/1000));
+      lockBetting("⛔ Betting stängd");
+      setStatus("⛔ Betting stängd", `Start om ${formatClock(secToStart)} (HH:MM:SS).`);
+      return;
+    }
+
+    // Startat (nu kör vi “spelet”)
+    const elapsed = Math.max(0, Math.floor((now - startDate)/1000));
+    lockBetting("🚀 Spelet har startat");
+    setStatus("🚀 Spelet pågår", `Daniel har (minst) hållit på i ${formatClock(elapsed)}.`);
+  };
+
+  tick();
+  phaseInterval = setInterval(tick, 1000);
+}
 
   </script>
 </body>
