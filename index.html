@@ -639,13 +639,23 @@
         guess_seconds: seconds,
         guess_time: formatHHMMSS(seconds),
         created_at: new Date().toISOString()
-      };
-      all.push(entry);
-      saveAllGuesses(all);
+      // Skicka till Google Sheets
+fetch(LIVE_ENDPOINT, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(entry)
+})
+.then(res => res.json())
+.then(data => {
+  if(!data.ok) throw new Error("Kunde inte spara gissningen.");
 
-      showOk(`Klart! ✅ Din gissning är sparad: ${entry.guess_time}. Nu återstår bara att Daniel… står ut. 😅`);
-      lockForm();
-    });
+  showOk(`Klart! ✅ Din gissning är skickad: ${entry.guess_time}. Nu återstår bara att Daniel… står ut. 😅`);
+  lockForm();
+})
+.catch(err => {
+  showErr("Kunde inte skicka gissningen. Försök igen.");
+});
+
 
     // --- ADMIN (hidden) ---
     (function adminSetup(){
