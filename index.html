@@ -748,6 +748,161 @@
       showOk(`Klart! ✅ Din gissning är sparad: ${entry.guess_time}. Nu återstår bara att Daniel… står ut. 😅`);
       lockForm();
     });
+    // -------------------- ADMIN (hidden) --------------------
+(function adminSetup(){
+  const $ = (id) => document.getElementById(id);
+
+  const adminCard = $("adminCard");
+  if(!adminCard){
+    // Admin HTML saknas eller har fel id
+    return;
+  }
+
+  // Öppna admin via 5 klick på rubriken
+  let clicks = 0;
+  let t = null;
+
+  const heroTitle = document.getElementById("heroTitle") || document.querySelector(".titleblock h2");
+  if(heroTitle){
+    heroTitle.style.cursor = "pointer";
+    heroTitle.addEventListener("click", ()=>{
+      clicks++;
+      clearTimeout(t);
+      t = setTimeout(()=> clicks = 0, 1200);
+
+      if(clicks >= 5){
+        adminCard.style.display = "block";
+        adminCard.scrollIntoView({behavior:"smooth", block:"start"});
+        clicks = 0;
+      }
+    });
+  }
+
+  // Hjälpfunktioner (återanvänder dina befintliga om de finns)
+  const parse = (window.parseHHMMSS) ? window.parseHHMMSS : (s)=>{
+    const m = /^(\d{1,2}):([0-5]\d):([0-5]\d)$/.exec((s||"").trim());
+    if(!m) return null;
+    return Number(m[1])*3600 + Number(m[2])*60 + Number(m[3]);
+  };
+
+  const pad = (n)=> String(n).padStart(2,"0");
+  const fmt = (sec)=>{
+    const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60;
+    return `${pad(h)}:${pad(m)}:${pad(s)}`;
+  };
+
+  const STORAGE_KEY = window.STORAGE_KEY || "daniel-vasaloppet-guesses-v1";
+  const loadAllGuesses = window.loadAllGuesses || (()=>{
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+    catch { return []; }
+  });
+
+  const adminOk = $("adminOk");
+  const adminErr = $("adminErr");
+  const winnerBox = $("winnerBox");
+
+  function ok(msg){
+    if(adminOk){ adminOk.textContent = msg; adminOk.style.display="block"; }
+    if(adminErr){ adminErr.style.display="none"; }
+  }
+  function err(msg){
+    if(adminErr){ adminErr.textContent = msg; adminErr.style.display="block"; }
+    if(adminOk){ adminOk.style.display="none"; }
+  }
+
+  function maskPhone(p){
+    const ph = String(p||"").replace(/\s+/g,"").replace(/-/g,"");
+    if(ph.length <= 4) return ph;
+    return ph.slice(0,3) + "****" + ph.slice(-2);
+  }
+
+  function calcWinner(){
+    const danielStr = ($("danielTime").value || "").trim();
+    const note = ($("adminNote").value || "").trim();
+
+    const danielSec = parse(danielStr);
+    if(danielSec === null) return err("Daniels tid måste vara HH:MM:SS (t.ex. 07:18:42).");
+
+    const all = loadAllGuesses();
+    if(!all.length) return err("Inga gissningar sparade på den här enheten.");
+
+    let best = null;
+    for(const g of all){
+      const guessSec = g.guess_seconds ?? parse(g.guess_time);
+      if(typeof guessSec !== "number") continue;
+
+      const diff = guessSec - danielSec;
+      const abs = Math.abs(diff);
+      const created = Date.parse(g.created_at || "") || Number.MAX_SAFE_INTEGER;
+
+      const entry = {...g, guessSec, diff, abs, created};
+      if(!best) best = entry;
+      else if(entry.abs < best.abs) best = entry;
+      else if(entry.abs === best.abs && entry.created < best.created) best = entry;
+    }
+
+    if(!best) return err("Kunde inte räkna (saknar giltiga gissningar).");
+
+    const sign = best.diff < 0 ? "-" : "+";
+    const d = Math.abs(best.diff);
+    const mm = Math.floor((d%3600)/60);
+    const ss = d%60;
+
+    winnerBox.innerHTML = `
+      <div><b>Daniels tid:</b> ${fmt(danielSec)} ${note ? `<span style="color:var(--muted)">(${note})</span>` : ""}</div>
+      <div style="margin-top:8px;"><b>Vinnare:</b> ${best.name || "Okänd"} (${maskPhone(best.phone)})</div>
+      <div><b>Gissning:</b> ${gTime(best)}</div>
+      <div><b>Avvikelse:</b> ${sign}${pad(mm)}:${pad(ss)} (${best.abs} sek)</div>
+    `;
+
+    ok("Vinnare uträknad ✅");
+  }
+
+  function gTime(b){
+    return b.guess_time || fmt(b.guessSec);
+  }
+
+  function exportCSV(){
+    const all = loadAllGuesses();
+    if(!all.length) return err("Inga gissningar att exportera på den här enheten.");
+
+    const header = ["name","phone","guess_time","guess_seconds","created_at"];
+    const rows = [header.join(",")];
+    for(const g of all){
+      const row = [
+        (g.name||"").replaceAll('"','""'),
+        (g.phone||"").replaceAll('"','""'),
+        (g.guess_time||"").replaceAll('"','""'),
+        String(g.guess_seconds ?? ""),
+        (g.created_at||"").replaceAll('"','""')
+      ].map(v => `"${v}"`);
+      rows.push(row.join(","));
+    }
+
+    const blob = new Blob([rows.join("\n")], {type:"text/csv;charset=utf-8;"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "gissningar.csv";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    ok("CSV exporterat ✅");
+  }
+
+  function clearLocal(){
+    if(!confirm("Nollställa gissningar på den här enheten?")) return;
+    localStorage.removeItem(STORAGE_KEY);
+    winnerBox.textContent = "Inget uträknat ännu.";
+    ok("Nollställt ✅");
+  }
+
+  $("calcWinnerBtn")?.addEventListener("click", calcWinner);
+  $("exportBtn")?.addEventListener("click", exportCSV);
+  $("clearLocalBtn")?.addEventListener("click", clearLocal);
+})();
+
   </script>
 </body>
 </html>
