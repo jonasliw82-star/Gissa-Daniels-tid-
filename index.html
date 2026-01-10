@@ -746,6 +746,131 @@
       $("exportBtn")?.addEventListener("click", exportCSV);
       $("clearLocalBtn")?.addEventListener("click", clearLocal);
     })();
+    // ===== LIVE DASHBOARD =====
+
+// 1) Här ska vi senare stoppa in din Google Sheets endpoint (Apps Script Web App).
+// Just nu lämnar jag placeholder:
+const LIVE_ENDPOINT = ""; // ex: "https://script.google.com/macros/s/XXXX/exec"
+
+let showAll = false;
+
+function fmtDiff(absSeconds){
+  const m = Math.floor(absSeconds/60);
+  const s = absSeconds%60;
+  const pad = (n)=> String(n).padStart(2,"0");
+  if(m >= 60){
+    const h = Math.floor(m/60);
+    const mm = m%60;
+    return `${pad(h)}:${pad(mm)}:${pad(s)}`;
+  }
+  return `${pad(m)}:${pad(s)}`;
+}
+
+function renderRows(rows, targetEl, limit=null){
+  const list = (limit ? rows.slice(0, limit) : rows);
+
+  if(list.length === 0){
+    targetEl.innerHTML = `<div class="hint">Inga gissningar än.</div>`;
+    return;
+  }
+
+  targetEl.innerHTML = list.map((r, idx)=>`
+    <div style="border:1px solid var(--border); border-radius:12px; padding:12px; display:flex; justify-content:space-between; gap:10px;">
+      <div>
+        <div style="font-weight:800;">#${idx+1} ${r.name}</div>
+        <div class="hint">Gissning: <b>${r.guess_time}</b></div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-weight:900;">${fmtDiff(r.absDiff)} </div>
+        <div class="hint">${r.absDiff} sek</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+async function fetchLiveData(){
+  // Om endpoint inte finns än, fall back: lokalt (för test)
+  if(!LIVE_ENDPOINT){
+    const all = loadAllGuesses();
+    return {
+      status: "local",
+      official_time: null,
+      guesses: all
+    };
+  }
+
+  const res = await fetch(LIVE_ENDPOINT, { cache: "no-store" });
+  if(!res.ok) throw new Error("Kunde inte hämta live-data");
+  return await res.json();
+}
+
+async function updateDashboard(){
+  const meta = document.getElementById("liveMeta");
+  const top10Box = document.getElementById("top10Box");
+  const allBox = document.getElementById("allBox");
+
+  try{
+    meta.textContent = "Laddar…";
+    const data = await fetchLiveData();
+
+    const officialStr = data.official_time; // "HH:MM:SS" eller null
+    const officialSec = officialStr ? parseHHMMSS(officialStr) : null;
+
+    // Om vi inte har officiell tid ännu -> visar “inväntar”
+    if(officialSec === null){
+      meta.innerHTML = `Officiell tid: <b>inte satt ännu</b> (admin kan sätta när tävlingen startat).`;
+      // Visa ändå lista sorterad på gissad tid (valfritt)
+      const rows = (data.guesses || []).map(g => ({
+        name: g.name,
+        guess_time: g.guess_time || formatHHMMSS(g.guess_seconds),
+        absDiff: 0
+      }));
+      renderRows(rows, top10Box, 10);
+      allBox.style.display = showAll ? "block" : "none";
+      if(showAll) renderRows(rows, allBox, null);
+      return;
+    }
+
+    // Bygg ranking: minsta absoluta diff mot officialSec
+    const guesses = data.guesses || [];
+    const ranked = guesses.map(g=>{
+      const guessSec = g.guess_seconds ?? parseHHMMSS(g.guess_time);
+      const diff = Math.abs(guessSec - officialSec);
+      return {
+        name: g.name,
+        guess_time: g.guess_time || formatHHMMSS(guessSec),
+        absDiff: diff,
+        created_at: g.created_at || ""
+      };
+    }).sort((a,b)=>{
+      if(a.absDiff !== b.absDiff) return a.absDiff - b.absDiff;
+      // tiebreak: tidigast inskickad
+      return (Date.parse(a.created_at)||0) - (Date.parse(b.created_at)||0);
+    });
+
+    meta.innerHTML = `Officiell tid just nu: <b>${officialStr}</b> • Deltagare: <b>${ranked.length}</b>`;
+    renderRows(ranked, top10Box, 10);
+
+    allBox.style.display = showAll ? "block" : "none";
+    if(showAll){
+      renderRows(ranked, allBox, null);
+    }
+  }catch(e){
+    meta.textContent = "Kunde inte ladda ställningen. (Saknar endpoint eller nätfel.)";
+    top10Box.innerHTML = `<div class="hint">${String(e.message || e)}</div>`;
+  }
+}
+
+document.getElementById("refreshLiveBtn")?.addEventListener("click", updateDashboard);
+document.getElementById("toggleAllBtn")?.addEventListener("click", ()=>{
+  showAll = !showAll;
+  document.getElementById("toggleAllBtn").textContent = showAll ? "➖ Minimera" : "➕ Utöka";
+  updateDashboard();
+});
+
+// Kör direkt vid sidladdning
+updateDashboard();
+
   </script>
 </body>
 </html>
