@@ -1,4 +1,3 @@
-<!-- index.html  (KLAR HEL FIL) -->
 <!doctype html>
 <html lang="sv">
 <head>
@@ -45,29 +44,9 @@
       justify-content:space-between;
       gap:12px;
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:0;
-    }
-    .brand h1{
-      font-size:15px;
-      margin:0;
-      font-weight:700;
-      letter-spacing:.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .brand .pill{
-      font-size:12px;
-      padding:4px 8px;
-      border:1px solid rgba(255,255,255,.25);
-      border-radius:999px;
-      opacity:.95;
-      white-space:nowrap;
-    }
+    .brand{display:flex;align-items:center;gap:10px;min-width:0;}
+    .brand h1{font-size:15px;margin:0;font-weight:700;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .brand .pill{font-size:12px;padding:4px 8px;border:1px solid rgba(255,255,255,.25);border-radius:999px;opacity:.95;white-space:nowrap;}
 
     .container{
       max-width:980px;
@@ -93,197 +72,83 @@
       align-items:flex-start;
     }
     .icon{
-      width:52px;
-      height:52px;
-      border-radius:14px;
-      display:grid;
-      place-items:center;
+      width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
       background: rgba(0,58,143,.08);
       border:1px solid rgba(0,58,143,.18);
       flex:0 0 auto;
     }
-    .titleblock h2{
-      margin:0;
-      font-size:20px;
-      line-height:1.2;
-    }
-    .titleblock p{
-      margin:8px 0 0;
-      color:var(--muted);
-      line-height:1.45;
-      font-size:14px;
-    }
+    .titleblock h2{margin:0;font-size:20px;line-height:1.2;}
+    .titleblock p{margin:8px 0 0;color:var(--muted);line-height:1.45;font-size:14px;}
     .card-body{padding:0 18px 18px}
 
-    .cta-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
+    .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
     .btn{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding:12px 14px;
-      border-radius:12px;
-      font-weight:700;
-      letter-spacing:.2px;
-      font-size:14px;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      user-select:none;
-      transition: transform .05s ease, box-shadow .15s ease, background .15s ease;
+      appearance:none;border:0;cursor:pointer;padding:12px 14px;border-radius:12px;
+      font-weight:700;letter-spacing:.2px;font-size:14px;display:inline-flex;align-items:center;gap:10px;
+      user-select:none;transition: transform .05s ease, box-shadow .15s ease, background .15s ease;
       box-shadow: 0 8px 18px rgba(0,0,0,.10);
     }
     .btn:active{transform: translateY(1px)}
-    .btn-primary{
-      background: linear-gradient(90deg, var(--rexel-blue), var(--rexel-blue-2));
-      color:#fff;
-    }
-    .btn-ghost{
-      background:#fff;
-      color:var(--rexel-blue);
-      border:1px solid var(--border);
-      box-shadow:none;
-    }
-    .btn-accent{
-      background: linear-gradient(90deg, #ffda4b, var(--accent));
-      color:#1e1e1e;
-    }
+    .btn-primary{background: linear-gradient(90deg, var(--rexel-blue), var(--rexel-blue-2));color:#fff;}
+    .btn-ghost{background:#fff;color:var(--rexel-blue);border:1px solid var(--border);box-shadow:none;}
+    .btn-accent{background: linear-gradient(90deg, #ffda4b, var(--accent));color:#1e1e1e;}
 
-    .form{
-      display:grid;
-      gap:12px;
-      margin-top:14px;
-    }
-    label{
-      display:block;
-      font-size:12px;
-      color:var(--muted);
-      margin:0 0 6px;
-      font-weight:700;
-      letter-spacing:.15px;
-    }
+    .form{display:grid;gap:12px;margin-top:14px;}
+    label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px;font-weight:700;letter-spacing:.15px;}
     input, textarea{
-      width:100%;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      outline:none;
-      font-size:15px;
-      background:#fff;
-      resize: vertical;
+      width:100%;padding:12px 12px;border-radius:12px;border:1px solid var(--border);outline:none;
+      font-size:15px;background:#fff;
     }
-    textarea{min-height:44px}
+    textarea{min-height:74px; resize:vertical;}
     input:focus, textarea:focus{
       border-color: rgba(0,58,143,.55);
       box-shadow: 0 0 0 4px rgba(0,58,143,.10);
     }
 
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
+    .grid-2{display:grid;grid-template-columns: 1fr 1fr;gap:12px;}
     @media (max-width: 520px){ .grid-2{grid-template-columns:1fr} }
 
-    .hint{
-      font-size:12px;
-      color:var(--muted);
-      line-height:1.45;
-      margin-top:4px;
-    }
+    .hint{font-size:12px;color:var(--muted);line-height:1.45;margin-top:4px;}
 
     .alert{
-      margin-top:12px;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid;
-      display:none;
-      font-size:14px;
-      line-height:1.35;
+      margin-top:12px;padding:12px 12px;border-radius:12px;border:1px solid;display:none;
+      font-size:14px;line-height:1.35;
     }
-    .alert.ok{
-      display:block;
-      background: rgba(27,127,75,.08);
-      border-color: rgba(27,127,75,.25);
-      color: var(--ok);
-    }
-    .alert.err{
-      display:block;
-      background: rgba(198,40,40,.08);
-      border-color: rgba(198,40,40,.25);
-      color: var(--danger);
-    }
+    .alert.ok{display:block;background: rgba(27,127,75,.08);border-color: rgba(27,127,75,.25);color: var(--ok);}
+    .alert.err{display:block;background: rgba(198,40,40,.08);border-color: rgba(198,40,40,.25);color: var(--danger);}
 
     .rules{
-      padding:18px;
-      border-top:1px dashed var(--border);
+      padding:18px;border-top:1px dashed var(--border);
       background: linear-gradient(180deg, rgba(0,58,143,.03), transparent);
     }
     .rules h3{margin:0 0 8px; font-size:16px}
     .rules ul{margin:0; padding-left:18px; color:var(--text)}
     .rules li{margin:8px 0; color:var(--muted); line-height:1.45}
 
-    /* Modal */
-    .modal-backdrop{
-      position:fixed; inset:0;
-      background: rgba(11,18,32,.55);
-      display:none;
-      padding:16px;
-      z-index:50;
-    }
+    .modal-backdrop{position:fixed; inset:0;background: rgba(11,18,32,.55);display:none;padding:16px;z-index:50;}
     .modal{
-      max-width:720px;
-      margin: 40px auto;
-      background:#fff;
-      border-radius:18px;
-      box-shadow: 0 20px 50px rgba(0,0,0,.25);
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.2);
+      max-width:720px;margin: 40px auto;background:#fff;border-radius:18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);overflow:hidden;border:1px solid rgba(255,255,255,.2);
     }
     .modal-head{
-      padding:14px 16px;
-      background: linear-gradient(90deg, var(--rexel-blue), var(--rexel-blue-2));
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+      padding:14px 16px;background: linear-gradient(90deg, var(--rexel-blue), var(--rexel-blue-2));
+      color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;
     }
     .modal-head h3{margin:0; font-size:15px}
     .modal-body{padding:16px}
     .close{
-      background: rgba(255,255,255,.15);
-      border:1px solid rgba(255,255,255,.25);
-      color:#fff;
-      border-radius:10px;
-      padding:8px 10px;
-      cursor:pointer;
-      font-weight:800;
+      background: rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;
+      border-radius:10px;padding:8px 10px;cursor:pointer;font-weight:800;
     }
     .modal-backdrop.show{display:block}
 
     .footer{
-      max-width:980px;
-      margin:0 auto;
-      padding:0 16px 30px;
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.5;
-      text-align:center;
+      max-width:980px;margin:0 auto;padding:0 16px 30px;color:var(--muted);
+      font-size:12px;line-height:1.5;text-align:center;
     }
     .kbd{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12px;
-      padding:2px 6px;
-      border:1px solid var(--border);
-      border-bottom-width:2px;
-      border-radius:8px;
-      background:#fff;
-      color:var(--text);
+      font-size:12px;padding:2px 6px;border:1px solid var(--border);border-bottom-width:2px;border-radius:8px;background:#fff;color:var(--text);
     }
   </style>
 </head>
@@ -295,11 +160,8 @@
         <div class="pill">Rexel-blått tema</div>
         <h1>Daniel vs Dalarna – tidstips</h1>
       </div>
-
-      <div style="display:flex; gap:10px; align-items:center;">
-        <button class="btn btn-ghost" id="openRulesBtn" type="button">📜 Regler</button>
-        <button class="btn btn-ghost" id="openAdminBtn" type="button" style="display:none;">🔒 Admin</button>
-      </div>
+      <button class="btn btn-ghost" id="openRulesBtn" type="button">📜 Regler</button>
+      <button class="btn btn-ghost" id="openAdminBtn" type="button" style="display:none;">🔒 Admin</button>
     </div>
   </div>
 
@@ -320,7 +182,7 @@
           <h2 id="heroTitle">⛷️ Hur länge orkar Daniel?</h2>
           <p>
             Daniel har laddat med blåbärssoppa, tejpade stavar och ett självförtroende som pendlar mellan
-            “jag är odödlig” och “varför finns uppförsbackar”. Hur länge orkar en köttbulle på skidor egentligen?
+            “jag är odödlig” och “varför finns uppförsbackar”.
             <br><br>
             Din uppgift: gissa <b>hur länge</b> han håller ut.
           </p>
@@ -333,8 +195,9 @@
           <p class="hint">
             Tips: skriv tiden som <span class="kbd">HH:MM:SS</span> (t.ex. <span class="kbd">07:12:00</span>).
             Gratis att delta. 1 gissning per person.
+            <br>
+            Admin: öppna via <span class="kbd">?admin=1&key=REXEL2026</span> eller 5 klick på rubriken.
           </p>
-         
         </div>
       </div>
 
@@ -353,14 +216,14 @@
       <div class="card-header">
         <div class="titleblock">
           <h2>🧾 Lägg din gissning</h2>
-          <p>Fyll i namn, mobilnummer och din gissade tid. En gissning per mobilnummer.</p>
+          <p>Fyll i namn, mobilnummer, tid och gärna en rolig kommentar 😄</p>
         </div>
       </div>
 
       <div class="card-body">
         <div id="gameStatusBox" style="border:1px solid var(--border); border-radius:12px; padding:12px; margin-bottom:12px;">
           <div style="font-weight:900;">⏳ Status</div>
-          <div id="gameStatusText" style="margin-top:6px; font-weight:800;">Laddar tider…</div>
+          <div id="gameStatusText" style="margin-top:6px; font-weight:800;">Laddar…</div>
           <div class="hint" id="gameStatusHint" style="margin-top:6px;"></div>
         </div>
 
@@ -373,7 +236,7 @@
             <div>
               <label for="phone">Mobilnummer</label>
               <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="07XXXXXXXX" required />
-              <div class="hint">Används för att kontakta vinnaren och hindra fler gissningar.</div>
+              <div class="hint">Används bara för att kontakta vinnaren och stoppa dubletter.</div>
             </div>
           </div>
 
@@ -396,7 +259,7 @@
 
           <div>
             <label for="comment">Rolig kommentar (valfritt)</label>
-            <textarea id="comment" name="comment" maxlength="180" placeholder="Skriv något kul… (max 180 tecken)"></textarea>
+            <textarea id="comment" name="comment" placeholder="T.ex. 'Fastnar i en enbuske i Risberg' 😅"></textarea>
             <div class="hint">Syns i listan (topp 10 / alla).</div>
           </div>
 
@@ -406,7 +269,7 @@
           <div class="alert err" id="errAlert"></div>
 
           <div class="hint" style="margin-top:10px;">
-            Data sparas i Google Sheets via Apps Script (web app).
+            Data sparas i Google Sheets via Apps Script (webapp).
           </div>
         </form>
       </div>
@@ -425,6 +288,7 @@
           </div>
         </div>
       </div>
+
       <div class="card-body">
         <div id="top10Box" style="display:grid; gap:10px;"></div>
         <div id="allBox" style="display:none; margin-top:14px;"></div>
@@ -436,17 +300,33 @@
       <div class="card-header">
         <div class="titleblock">
           <h2>🔒 Admin</h2>
-          <p>Här kan du räkna vinnare (lokalt) och radera gissningar i Google Sheets.</p>
+          <p>Sätt starttid, bettingstopp och officiell tid. Du kan även radera gissningar.</p>
         </div>
       </div>
 
       <div class="card-body">
         <div class="form" style="margin-top:0;">
+          <div>
+            <label for="adminKey">Admin-nyckel</label>
+            <input id="adminKey" type="password" placeholder="REXEL2026" />
+            <div class="hint">Måste matcha ADMIN_KEY i Apps Script.</div>
+          </div>
+
           <div class="grid-2">
             <div>
-              <label for="danielTime">Daniels tid (HH:MM:SS)</label>
-              <input id="danielTime" type="text" inputmode="numeric" placeholder="07:18:42" />
-              <div class="hint">Använd exakt format HH:MM:SS.</div>
+              <label for="startTime">Starttid (YYYY-MM-DD HH:MM:SS)</label>
+              <input id="startTime" type="text" placeholder="2026-03-01 08:00:00" />
+            </div>
+            <div>
+              <label for="betCloseTime">Bettingstopp (YYYY-MM-DD HH:MM:SS)</label>
+              <input id="betCloseTime" type="text" placeholder="2026-03-01 07:30:00" />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <label for="officialTime">Officiell tid (HH:MM:SS)</label>
+              <input id="officialTime" type="text" placeholder="07:18:42" />
             </div>
             <div>
               <label for="adminNote">Notering (valfritt)</label>
@@ -454,10 +334,9 @@
             </div>
           </div>
 
-          <div class="cta-row" style="margin-top:8px;">
-            <button class="btn btn-primary" type="button" id="calcWinnerBtn">🏆 Räkna vinnare</button>
-            <button class="btn btn-ghost" type="button" id="exportBtn">⬇️ Exportera (CSV)</button>
-            <button class="btn btn-ghost" type="button" id="clearLocalBtn">🧹 Rensa lokalt</button>
+          <div class="cta-row">
+            <button class="btn btn-primary" type="button" id="saveTimesBtn">💾 Spara tider</button>
+            <button class="btn btn-ghost" type="button" id="adminRefreshBtn">🔄 Hämta senaste</button>
           </div>
 
           <div class="alert ok" id="adminOk" style="display:none;"></div>
@@ -465,17 +344,27 @@
 
           <div class="card" style="margin-top:12px; border-radius:14px;">
             <div class="card-body" style="padding:14px;">
-              <div style="font-weight:800; margin-bottom:6px;">Resultat (lokalt)</div>
-              <div id="winnerBox" style="color:var(--muted); line-height:1.5;">Inget uträknat ännu.</div>
+              <div style="font-weight:800; margin-bottom:6px;">Radera gissning</div>
+              <div class="hint">Kopiera <b>id</b> från listan (visas bara i Admin-läge).</div>
+              <div class="grid-2" style="margin-top:10px;">
+                <div>
+                  <label for="deleteId">id</label>
+                  <input id="deleteId" type="text" placeholder="uuid..." />
+                </div>
+                <div style="display:flex;align-items:end;">
+                  <button class="btn btn-ghost" type="button" id="deleteBtn">🗑️ Radera</button>
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="hint" style="margin-top:10px;">
-            Radera gissning: använd 🗑️-knappen i listan (syns bara i admin-läge).
+            Admin-läge: <span class="kbd">?admin=1&key=REXEL2026</span> eller 5 klick på rubriken.
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
   <div class="footer">
@@ -491,7 +380,6 @@
       </div>
       <div class="modal-body">
         <p style="margin-top:0;color:var(--muted);line-height:1.6">Enkelt, tydligt och utan krångel.</p>
-
         <h4 style="margin:16px 0 8px;">1) Så här gör du</h4>
         <ol style="margin:0; padding-left:18px; color:var(--muted); line-height:1.6">
           <li>Gissa Daniels tid i <b>HH:MM:SS</b>.</li>
@@ -500,39 +388,24 @@
         </ol>
 
         <h4 style="margin:16px 0 8px;">2) En gissning</h4>
-        <p style="margin:0;color:var(--muted);line-height:1.6">Gratis att delta. Du får lämna <b>en (1)</b> gissning per mobilnummer.</p>
+        <p style="margin:0;color:var(--muted);line-height:1.6">Gratis att delta. Du får lämna <b>en</b> gissning per mobilnummer.</p>
 
         <h4 style="margin:16px 0 8px;">3) Hur räknas tiden?</h4>
         <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.6">
           <li>Går Daniel i mål → <b>officiell måltid</b> gäller.</li>
           <li>Bryter Daniel → <b>tiden vid sista officiella kontrollen</b> gäller.</li>
-          <li>Vi använder arrangörens officiella tider/resultat.</li>
         </ul>
 
         <h4 style="margin:16px 0 8px;">4) Vinnare</h4>
         <p style="margin:0;color:var(--muted);line-height:1.6">
-          Den som gissar <b>närmast</b> vinner. Vid exakt lika: först inskickad gissning vinner.
+          Den som gissar <b>närmast</b> vinner. Vid exakt lika: tidigast inskickad vinner.
         </p>
       </div>
     </div>
   </div>
 
   <script>
-    // ================== KONFIG ==================
-    // Din Apps Script Web App endpoint (din länk)
-    const LIVE_ENDPOINT = "https://script.google.com/macros/s/AKfycbxw0cHxsSqbzNw8UB6RZWLHVyeQYdXEsY_GD0-5Qh6HJDriLJk9wamwQQWZWFrEDW9O/exec";
-
-    // ================== BAS ==================
     const $ = (id) => document.getElementById(id);
-    const params = new URLSearchParams(location.search);
-    const ADMIN_MODE = params.get("admin") === "1";
-    const ADMIN_KEY  = params.get("key") || "";
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, c => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[c]));
-    }
 
     function normalizePhone(phoneRaw){
       return (phoneRaw || "").replace(/\s+/g, "").replace(/-/g, "");
@@ -554,11 +427,7 @@
       return `${pad(h)}:${pad(m)}:${pad(s)}`;
     }
 
-    function makeId(){
-      return (crypto?.randomUUID) ? crypto.randomUUID() : String(Date.now()) + "-" + Math.random().toString(16).slice(2);
-    }
-
-    // ================== MODAL + UI ==================
+    // Modal
     const rulesModal = $("rulesModal");
     $("openRulesBtn").addEventListener("click", ()=> rulesModal.classList.add("show"));
     $("closeRulesBtn").addEventListener("click", ()=> rulesModal.classList.remove("show"));
@@ -581,7 +450,49 @@
       }catch(_){}
     });
 
-    // ================== STATUS / NEDRÄKNING ==================
+    // ===== ADMIN VISIBILITY =====
+    function isAdminUnlocked(){
+      const params = new URLSearchParams(location.search);
+      return params.get("admin") === "1";
+    }
+    function adminKeyFromUrl(){
+      const params = new URLSearchParams(location.search);
+      return params.get("key") || "";
+    }
+    (function setupAdminGate(){
+      const btn = $("openAdminBtn");
+      if(isAdminUnlocked()){
+        btn.style.display = "inline-flex";
+        const urlKey = adminKeyFromUrl();
+        if(urlKey) $("adminKey").value = urlKey;
+      }
+    })();
+
+    $("openAdminBtn").addEventListener("click", ()=>{
+      const adminCard = $("adminCard");
+      const hidden = (adminCard.style.display === "none" || !adminCard.style.display);
+      adminCard.style.display = hidden ? "block" : "none";
+      if(hidden) adminCard.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    // 5-click fallback
+    (function(){
+      let clicks = 0, t = null;
+      const heroTitle = $("heroTitle");
+      heroTitle.style.cursor = "pointer";
+      heroTitle.addEventListener("click", ()=>{
+        clicks++;
+        clearTimeout(t);
+        t = setTimeout(()=> clicks = 0, 1200);
+        if(clicks >= 5){
+          $("adminCard").style.display = "block";
+          $("adminCard").scrollIntoView({behavior:"smooth", block:"start"});
+          clicks = 0;
+        }
+      });
+    })();
+
+    // ===== STATUS / CLOCK =====
     let phaseInterval = null;
 
     function parseStartDateTime(str){
@@ -601,35 +512,25 @@
     }
 
     function setStatus(text, hint){
-      const t = $("gameStatusText");
-      const h = $("gameStatusHint");
-      if(t) t.textContent = text;
-      if(h) h.textContent = hint || "";
+      $("gameStatusText").textContent = text;
+      $("gameStatusHint").textContent = hint || "";
     }
 
-    function lockBetting(msg){
+    function lockBetting(btnText){
       ["name","phone","timeGuess","consent","comment"].forEach(id => {
         const el = $(id);
         if(el) el.disabled = true;
       });
-      const btn = $("submitBtn");
-      if(btn){
-        btn.disabled = true;
-        btn.textContent = "⛔ Betting stängd";
-      }
-      setStatus(msg || "Betting är stängd.", "");
+      $("submitBtn").disabled = true;
+      $("submitBtn").textContent = btnText || "⛔ Betting stängd";
     }
-
     function unlockBetting(){
       ["name","phone","timeGuess","consent","comment"].forEach(id => {
         const el = $(id);
         if(el) el.disabled = false;
       });
-      const btn = $("submitBtn");
-      if(btn){
-        btn.disabled = false;
-        btn.textContent = "✅ Skicka min gissning";
-      }
+      $("submitBtn").disabled = false;
+      $("submitBtn").textContent = "✅ Skicka min gissning";
     }
 
     function startPhaseClock({startDate, closeDate, official_time}){
@@ -639,14 +540,14 @@
         const now = new Date();
 
         if(official_time){
-          lockBetting("🏁 Betting stängd – loppet är avgjort.");
-          setStatus("🏁 Loppet är avgjort", "Leaderboard visar slutställning.");
+          setStatus("🏁 Loppet är avgjort (officiell tid satt).", "Leaderboard visar slutställning.");
+          lockBetting("🏁 Betting stängd");
           return;
         }
 
         if(!startDate){
-          unlockBetting();
           setStatus("🟢 Öppet för gissningar", "Starttid är inte satt ännu.");
+          unlockBetting();
           return;
         }
 
@@ -654,73 +555,169 @@
 
         if(now < effectiveClose){
           const secLeft = Math.max(0, Math.floor((effectiveClose - now)/1000));
-          unlockBetting();
           setStatus("🟢 Betting öppen", `Betting stänger om ${formatClock(secLeft)} (HH:MM:SS).`);
+          unlockBetting();
           return;
         }
 
         if(now >= effectiveClose && now < startDate){
           const secToStart = Math.max(0, Math.floor((startDate - now)/1000));
-          lockBetting("⛔ Betting stängd");
           setStatus("⛔ Betting stängd", `Start om ${formatClock(secToStart)} (HH:MM:SS).`);
+          lockBetting("⛔ Betting stängd");
           return;
         }
 
         const elapsed = Math.max(0, Math.floor((now - startDate)/1000));
-        lockBetting("🚀 Spelet har startat");
         setStatus("🚀 Spelet pågår", `Daniel har (minst) hållit på i ${formatClock(elapsed)}.`);
+        lockBetting("🚀 Spelet startat");
       };
 
       tick();
       phaseInterval = setInterval(tick, 1000);
     }
 
-    // ================== ADMIN VISNING ==================
-    (function adminToggleSetup(){
-      const adminBtn = $("openAdminBtn");
-      const adminCard = $("adminCard");
-      if(!adminBtn || !adminCard) return;
+    // ===== DASHBOARD =====
+    let showAll = false;
 
-      // Visa admin-knapp om URL har ?admin=1
-      if(ADMIN_MODE) adminBtn.style.display = "inline-flex";
-
-      adminBtn.addEventListener("click", ()=>{
-        const hidden = (adminCard.style.display === "none" || !adminCard.style.display);
-        adminCard.style.display = hidden ? "block" : "none";
-        if(hidden) adminCard.scrollIntoView({behavior:"smooth", block:"start"});
-      });
-
-      // 5-klick på rubrik öppnar admin också (om man råkar sakna URL)
-      let clicks = 0;
-      let t = null;
-      const heroTitle = $("heroTitle");
-      if(heroTitle){
-        heroTitle.style.cursor = "pointer";
-        heroTitle.addEventListener("click", ()=>{
-          clicks++;
-          clearTimeout(t);
-          t = setTimeout(()=> clicks = 0, 1200);
-          if(clicks >= 5){
-            adminCard.style.display = "block";
-            adminCard.scrollIntoView({behavior:"smooth", block:"start"});
-            clicks = 0;
-          }
-        });
+    function fmtDiff(absSeconds){
+      const m = Math.floor(absSeconds/60);
+      const s = absSeconds%60;
+      const pad = (n)=> String(n).padStart(2,"0");
+      if(m >= 60){
+        const h = Math.floor(m/60);
+        const mm = m%60;
+        return `${pad(h)}:${pad(mm)}:${pad(s)}`;
       }
-    })();
+      return `${pad(m)}:${pad(s)}`;
+    }
 
-    // ================== SUBMIT (POST) ==================
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, (c)=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[c]));
+    }
+
+    function renderRows(rows, targetEl, limit=null, adminMode=false){
+      const list = (limit ? rows.slice(0, limit) : rows);
+
+      if(list.length === 0){
+        targetEl.innerHTML = `<div class="hint">Inga gissningar än.</div>`;
+        return;
+      }
+
+      targetEl.innerHTML = list.map((r, idx)=>`
+        <div style="border:1px solid var(--border); border-radius:12px; padding:12px; display:flex; justify-content:space-between; gap:10px;">
+          <div style="min-width:0;">
+            <div style="font-weight:800;">#${idx+1} ${escapeHtml(r.name)}</div>
+            <div class="hint">Gissning: <b>${escapeHtml(r.guess_time)}</b></div>
+            ${r.comment ? `<div class="hint">💬 ${escapeHtml(r.comment)}</div>` : ""}
+            ${adminMode ? `<div class="hint"><span class="kbd">id</span> ${escapeHtml(r.id)}</div>` : ""}
+          </div>
+          <div style="text-align:right;">
+            <div style="font-weight:900;">${fmtDiff(r.absDiff)} </div>
+            <div class="hint">${r.absDiff} sek</div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function run_(fn, args){
+      return new Promise((resolve, reject)=>{
+        google.script.run
+          .withSuccessHandler(resolve)
+          .withFailureHandler(err => reject(err))
+          [fn](args);
+      });
+    }
+
+    async function updateDashboard(){
+      const meta = $("liveMeta");
+      const top10Box = $("top10Box");
+      const allBox = $("allBox");
+
+      try{
+        meta.textContent = "Laddar…";
+        const data = await run_("apiGetState");
+
+        const startDate = parseStartDateTime(data.start_time || null);
+        const closeDate = parseStartDateTime(data.bet_close_time || null);
+        startPhaseClock({ startDate, closeDate, official_time: data.official_time || null });
+
+        const officialStr = data.official_time;
+        const officialSec = officialStr ? parseHHMMSS(officialStr) : null;
+
+        const guesses = data.guesses || [];
+
+        // Om officiell tid saknas: visa bara “inväntar” + sortera på created_at
+        if(officialSec === null){
+          meta.innerHTML = `Officiell tid: <b>inte satt ännu</b> • Deltagare: <b>${guesses.length}</b>`;
+          const rows = guesses.map(g => ({
+            id: String(g.id||""),
+            name: String(g.name||""),
+            guess_time: String(g.guess_time || ""),
+            comment: String(g.comment||""),
+            absDiff: 0,
+            created_at: String(g.created_at||"")
+          })).sort((a,b)=> (Date.parse(a.created_at)||0) - (Date.parse(b.created_at)||0));
+
+          const adminMode = isAdminUnlocked();
+          renderRows(rows, top10Box, 10, adminMode);
+          allBox.style.display = showAll ? "block" : "none";
+          if(showAll) renderRows(rows, allBox, null, adminMode);
+          return;
+        }
+
+        // Ranking
+        const ranked = guesses.map(g=>{
+          const guessSec = Number(g.guess_seconds) || parseHHMMSS(g.guess_time);
+          const diff = Math.abs(guessSec - officialSec);
+          return {
+            id: String(g.id||""),
+            name: String(g.name||""),
+            guess_time: String(g.guess_time || formatHHMMSS(guessSec)),
+            comment: String(g.comment||""),
+            absDiff: diff,
+            created_at: String(g.created_at||"")
+          };
+        }).sort((a,b)=>{
+          if(a.absDiff !== b.absDiff) return a.absDiff - b.absDiff;
+          return (Date.parse(a.created_at)||0) - (Date.parse(b.created_at)||0);
+        });
+
+        meta.innerHTML = `Officiell tid: <b>${officialStr}</b> • Deltagare: <b>${ranked.length}</b>`;
+        const adminMode = isAdminUnlocked();
+        renderRows(ranked, top10Box, 10, adminMode);
+
+        allBox.style.display = showAll ? "block" : "none";
+        if(showAll) renderRows(ranked, allBox, null, adminMode);
+
+      }catch(e){
+        meta.textContent = "Kunde inte ladda ställningen.";
+        top10Box.innerHTML = `<div class="hint">${String(e.message || e)}</div>`;
+      }
+    }
+
+    $("refreshLiveBtn").addEventListener("click", updateDashboard);
+    $("toggleAllBtn").addEventListener("click", ()=>{
+      showAll = !showAll;
+      $("toggleAllBtn").textContent = showAll ? "➖ Minimera" : "➕ Utöka";
+      updateDashboard();
+    });
+
+    // ===== SUBMIT =====
     function showOk(msg){
       $("okAlert").textContent = msg;
       $("errAlert").textContent = "";
       $("errAlert").style.display = "none";
       $("okAlert").style.display = "block";
+      $("okAlert").className = "alert ok";
     }
     function showErr(msg){
       $("errAlert").textContent = msg;
       $("okAlert").textContent = "";
       $("okAlert").style.display = "none";
       $("errAlert").style.display = "block";
+      $("errAlert").className = "alert err";
     }
 
     $("guessForm").addEventListener("submit", async (e)=>{
@@ -739,306 +736,91 @@
       const seconds = parseHHMMSS(timeStr);
       if(seconds === null) return showErr("Tiden måste vara HH:MM:SS (t.ex. 07:12:00).");
 
-      const entry = {
-        action: "add",
-        id: makeId(),
-        name,
-        phone,
-        comment,
-        guess_seconds: seconds,
-        guess_time: formatHHMMSS(seconds),
-        created_at: new Date().toISOString()
-      };
-
       try{
-        const res = await fetch(LIVE_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type":"application/json" },
-          body: JSON.stringify(entry)
-        });
-        const data = await res.json();
-        if(!data.ok) throw new Error(data.error || "Kunde inte spara gissningen.");
+        $("submitBtn").disabled = true;
+        $("submitBtn").textContent = "⏳ Skickar…";
+
+        const entry = {
+          name, phone, comment,
+          guess_seconds: seconds,
+          guess_time: formatHHMMSS(seconds),
+          created_at: new Date().toISOString()
+        };
+
+        const res = await run_("apiAddGuess", entry);
+        if(!res?.ok){
+          throw new Error(res?.error || "Kunde inte spara gissningen.");
+        }
 
         showOk(`Klart! ✅ Din gissning är skickad: ${entry.guess_time}.`);
-        $("submitBtn").disabled = true;
-        $("submitBtn").textContent = "🔒 Gissning inskickad";
-        ["name","phone","timeGuess","consent","comment"].forEach(id => $(id).disabled = true);
+        lockBetting("🔒 Gissning inskickad");
+        updateDashboard();
 
-        await updateDashboard();
       }catch(err){
-        showErr("Kunde inte skicka gissningen. Försök igen.");
+        showErr(String(err.message || err));
+        unlockBetting();
       }
     });
 
-    // ================== LIVE DASHBOARD ==================
-    let showAll = false;
+    // ===== ADMIN ACTIONS =====
+    function adminOk(msg){ $("adminOk").textContent = msg; $("adminOk").style.display="block"; $("adminErr").style.display="none"; }
+    function adminErr(msg){ $("adminErr").textContent = msg; $("adminErr").style.display="block"; $("adminOk").style.display="none"; }
 
-    function fmtDiff(absSeconds){
-      const m = Math.floor(absSeconds/60);
-      const s = absSeconds%60;
-      const pad = (n)=> String(n).padStart(2,"0");
-      if(m >= 60){
-        const h = Math.floor(m/60);
-        const mm = m%60;
-        return `${pad(h)}:${pad(mm)}:${pad(s)}`;
-      }
-      return `${pad(m)}:${pad(s)}`;
-    }
-
-    function renderRows(rows, targetEl, limit=null){
-      const list = (limit ? rows.slice(0, limit) : rows);
-
-      if(list.length === 0){
-        targetEl.innerHTML = `<div class="hint">Inga gissningar än.</div>`;
-        return;
-      }
-
-      targetEl.innerHTML = list.map((r, idx)=>`
-        <div style="border:1px solid var(--border); border-radius:12px; padding:12px; display:flex; justify-content:space-between; gap:10px;">
-          <div>
-            <div style="font-weight:800;">#${idx+1} ${escapeHtml(r.name || "")}</div>
-            <div class="hint">Gissning: <b>${escapeHtml(r.guess_time || "")}</b></div>
-            ${r.comment ? `<div class="hint">💬 ${escapeHtml(r.comment)}</div>` : ``}
-          </div>
-
-          <div style="text-align:right;">
-            ${typeof r.absDiff === "number" ? `
-              <div style="font-weight:900;">${fmtDiff(r.absDiff)}</div>
-              <div class="hint">${r.absDiff} sek</div>
-            ` : ``}
-
-            ${ADMIN_MODE ? `
-              <button class="btn btn-ghost" type="button" style="margin-top:8px; padding:8px 10px;"
-                onclick="deleteGuess('${encodeURIComponent(String(r.id || ""))}')">🗑️ Radera</button>
-            ` : ``}
-          </div>
-        </div>
-      `).join("");
-    }
-
-    async function fetchLiveData(){
-      const res = await fetch(LIVE_ENDPOINT, { cache: "no-store" });
-      if(!res.ok) throw new Error("Kunde inte hämta live-data");
-      return await res.json();
-    }
-
-    async function updateDashboard(){
-      const meta = $("liveMeta");
-      const top10Box = $("top10Box");
-      const allBox = $("allBox");
-
+    async function adminRefresh(){
       try{
-        meta.textContent = "Laddar…";
-        const data = await fetchLiveData();
-
-        // status-klocka (start/bet-close/official)
-        const startDate = parseStartDateTime(data.start_time || null);
-        const closeDate = parseStartDateTime(data.bet_close_time || null);
-        startPhaseClock({ startDate, closeDate, official_time: data.official_time || null });
-
-        const officialStr = data.official_time;
-        const officialSec = officialStr ? parseHHMMSS(officialStr) : null;
-
-        const guesses = (data.guesses || []).map(g => ({
-          id: String(g.id || ""),
-          name: String(g.name || ""),
-          phone: String(g.phone || ""),
-          comment: String(g.comment || ""),
-          guess_time: String(g.guess_time || ""),
-          guess_seconds: Number(g.guess_seconds || 0),
-          created_at: String(g.created_at || "")
-        }));
-
-        if(officialSec === null){
-          meta.innerHTML = `Officiell tid: <b>inte satt ännu</b> • Deltagare: <b>${guesses.length}</b>`;
-          // visa listan sorterad på guess_seconds (valfritt)
-          const rows = guesses
-            .filter(g => Number.isFinite(g.guess_seconds))
-            .sort((a,b)=> a.guess_seconds - b.guess_seconds)
-            .map(g => ({...g, absDiff: 0}));
-
-          renderRows(rows, top10Box, 10);
-          allBox.style.display = showAll ? "block" : "none";
-          if(showAll) renderRows(rows, allBox, null);
-          return;
-        }
-
-        const ranked = guesses.map(g=>{
-          const guessSec = Number.isFinite(g.guess_seconds) ? g.guess_seconds : parseHHMMSS(g.guess_time);
-          const absDiff = Math.abs((guessSec||0) - officialSec);
-          return { ...g, absDiff };
-        }).sort((a,b)=>{
-          if(a.absDiff !== b.absDiff) return a.absDiff - b.absDiff;
-          return (Date.parse(a.created_at)||0) - (Date.parse(b.created_at)||0);
-        });
-
-        meta.innerHTML = `Officiell tid: <b>${escapeHtml(officialStr)}</b> • Deltagare: <b>${ranked.length}</b>`;
-        renderRows(ranked, top10Box, 10);
-
-        allBox.style.display = showAll ? "block" : "none";
-        if(showAll) renderRows(ranked, allBox, null);
-
+        const data = await run_("apiGetState");
+        $("officialTime").value = data.official_time || "";
+        $("startTime").value = data.start_time || "";
+        $("betCloseTime").value = data.bet_close_time || "";
+        $("adminNote").value = data.note || "";
+        adminOk("Hämtat ✅");
       }catch(e){
-        meta.textContent = "Kunde inte ladda ställningen. (endpoint/nätfel)";
-        top10Box.innerHTML = `<div class="hint">${escapeHtml(String(e.message || e))}</div>`;
+        adminErr(String(e.message || e));
       }
     }
 
-    $("refreshLiveBtn")?.addEventListener("click", updateDashboard);
-    $("toggleAllBtn")?.addEventListener("click", ()=>{
-      showAll = !showAll;
-      $("toggleAllBtn").textContent = showAll ? "➖ Minimera" : "➕ Utöka";
-      updateDashboard();
+    $("adminRefreshBtn").addEventListener("click", adminRefresh);
+
+    $("saveTimesBtn").addEventListener("click", async ()=>{
+      try{
+        const payload = {
+          adminKey: ($("adminKey").value || "").trim(),
+          official_time: ($("officialTime").value || "").trim(),
+          start_time: ($("startTime").value || "").trim(),
+          bet_close_time: ($("betCloseTime").value || "").trim(),
+          note: ($("adminNote").value || "").trim()
+        };
+        const res = await run_("apiSetTimes", payload);
+        if(!res?.ok) throw new Error(res?.error || "Kunde inte spara.");
+        adminOk("Tider sparade ✅");
+        updateDashboard();
+      }catch(e){
+        adminErr(String(e.message || e));
+      }
     });
 
-    // ================== DELETE (ADMIN) ==================
-    async function deleteGuess(idEnc){
-      const id = decodeURIComponent(idEnc || "");
-      if(!id) return alert("Saknar id på raden (kan inte radera).");
-
-      if(!ADMIN_KEY) return alert("Admin-nyckel saknas i URL:en. Lägg till ?admin=1&key=REXEL2026");
-      if(!confirm("Radera denna gissning?")) return;
-
+    $("deleteBtn").addEventListener("click", async ()=>{
       try{
-        const res = await fetch(LIVE_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type":"application/json" },
-          body: JSON.stringify({ action:"delete", id, adminKey: ADMIN_KEY })
-        });
-        const data = await res.json();
-        if(!data.ok) throw new Error(data.error || "Delete failed");
-        await updateDashboard();
-        alert("Raderad ✅");
+        const payload = {
+          adminKey: ($("adminKey").value || "").trim(),
+          id: ($("deleteId").value || "").trim()
+        };
+        if(!payload.id) return adminErr("Skriv ett id att radera.");
+        if(!confirm("Radera gissningen med id " + payload.id + "?")) return;
+
+        const res = await run_("apiDeleteGuess", payload);
+        if(!res?.ok) throw new Error(res?.error || "Kunde inte radera.");
+        adminOk("Raderad ✅");
+        $("deleteId").value = "";
+        updateDashboard();
       }catch(e){
-        alert("Kunde inte radera: " + (e.message || e));
+        adminErr(String(e.message || e));
       }
-    }
-    window.deleteGuess = deleteGuess; // behövs för onclick
+    });
 
-    // ================== ADMIN: VINNARE (LOKALT) + CSV ==================
-    (function adminTools(){
-      const adminOk = $("adminOk");
-      const adminErr = $("adminErr");
-      const winnerBox = $("winnerBox");
-
-      function ok(msg){
-        if(adminOk){ adminOk.textContent = msg; adminOk.style.display="block"; }
-        if(adminErr){ adminErr.style.display="none"; }
-      }
-      function err(msg){
-        if(adminErr){ adminErr.textContent = msg; adminErr.style.display="block"; }
-        if(adminOk){ adminOk.style.display="none"; }
-      }
-
-      function maskPhone(p){
-        const ph = normalizePhone(p);
-        if(ph.length <= 4) return ph;
-        return ph.slice(0,3) + "****" + ph.slice(-2);
-      }
-
-      let lastLiveGuesses = []; // från senaste updateDashboard()
-
-      async function refreshCache(){
-        const data = await fetchLiveData();
-        lastLiveGuesses = (data.guesses || []);
-        return data;
-      }
-
-      async function calcWinner(){
-        try{
-          const danielStr = ($("danielTime").value || "").trim();
-          const note = ($("adminNote").value || "").trim();
-          const danielSec = parseHHMMSS(danielStr);
-          if(danielSec === null) return err("Daniels tid måste vara HH:MM:SS (t.ex. 07:18:42).");
-
-          await refreshCache();
-          const all = lastLiveGuesses;
-          if(!all.length) return err("Inga gissningar ännu.");
-
-          let best = null;
-          for(const g of all){
-            const guessSec = Number(g.guess_seconds) || parseHHMMSS(g.guess_time);
-            if(typeof guessSec !== "number") continue;
-            const diff = guessSec - danielSec;
-            const abs = Math.abs(diff);
-            const created = Date.parse(g.created_at || "") || Number.MAX_SAFE_INTEGER;
-
-            const entry = {...g, guessSec, diff, abs, created};
-            if(!best) best = entry;
-            else if(entry.abs < best.abs) best = entry;
-            else if(entry.abs === best.abs && entry.created < best.created) best = entry;
-          }
-          if(!best) return err("Kunde inte räkna (saknar giltiga gissningar).");
-
-          const sign = best.diff < 0 ? "-" : "+";
-          const d = Math.abs(best.diff);
-          const mm = Math.floor((d%3600)/60);
-          const ss = d%60;
-          const pad = (n)=> String(n).padStart(2,"0");
-
-          winnerBox.innerHTML = `
-            <div><b>Daniels tid:</b> ${escapeHtml(formatHHMMSS(danielSec))} ${note ? `<span style="color:var(--muted)">(${escapeHtml(note)})</span>` : ""}</div>
-            <div style="margin-top:8px;"><b>Vinnare:</b> ${escapeHtml(best.name || "Okänd")} (${escapeHtml(maskPhone(best.phone || ""))})</div>
-            <div><b>Gissning:</b> ${escapeHtml(best.guess_time || formatHHMMSS(best.guessSec))}</div>
-            <div><b>Avvikelse:</b> ${sign}${pad(mm)}:${pad(ss)} (${best.abs} sek)</div>
-          `;
-          ok("Vinnare uträknad ✅");
-        }catch(e){
-          err(String(e.message || e));
-        }
-      }
-
-      async function exportCSV(){
-        try{
-          await refreshCache();
-          const all = lastLiveGuesses;
-          if(!all.length) return err("Inga gissningar att exportera.");
-
-          const header = ["id","name","phone","guess_time","guess_seconds","comment","created_at"];
-          const rows = [header.join(",")];
-
-          for(const g of all){
-            const row = [
-              (g.id||""),
-              (g.name||""),
-              (g.phone||""),
-              (g.guess_time||""),
-              String(g.guess_seconds ?? ""),
-              (g.comment||""),
-              (g.created_at||"")
-            ].map(v => `"${String(v).replaceAll('"','""')}"`);
-            rows.push(row.join(","));
-          }
-
-          const blob = new Blob([rows.join("\n")], {type:"text/csv;charset=utf-8;"});
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "gissningar.csv";
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          URL.revokeObjectURL(url);
-          ok("CSV exporterat ✅");
-        }catch(e){
-          err(String(e.message || e));
-        }
-      }
-
-      function clearLocal(){
-        // denna sida sparar inte lokalt längre, men vi kan ändå tömma formuläret
-        ["name","phone","timeGuess","comment"].forEach(id => { if($(id)) $(id).value = ""; });
-        if($("consent")) $("consent").checked = false;
-        ok("Rensat formulär ✅");
-      }
-
-      $("calcWinnerBtn")?.addEventListener("click", calcWinner);
-      $("exportBtn")?.addEventListener("click", exportCSV);
-      $("clearLocalBtn")?.addEventListener("click", clearLocal);
-    })();
-
-    // ================== START ==================
+    // First load
     updateDashboard();
+    if(isAdminUnlocked()) adminRefresh();
   </script>
 </body>
 </html>
