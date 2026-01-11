@@ -1,3 +1,4 @@
+<!-- index.html  (KLAR HEL FIL) -->
 <!doctype html>
 <html lang="sv">
 <head>
@@ -27,7 +28,6 @@
                   linear-gradient(180deg, #ffffff 0%, var(--bg) 60%);
       color:var(--text);
     }
-
     .topbar{
       background: linear-gradient(90deg, var(--rexel-blue), var(--rexel-blue-2));
       color:#fff;
@@ -174,8 +174,9 @@
       outline:none;
       font-size:15px;
       background:#fff;
+      resize: vertical;
     }
-    textarea{ resize: vertical; min-height: 44px; }
+    textarea{min-height:44px}
     input:focus, textarea:focus{
       border-color: rgba(0,58,143,.55);
       box-shadow: 0 0 0 4px rgba(0,58,143,.10);
@@ -294,6 +295,7 @@
         <div class="pill">Rexel-blått tema</div>
         <h1>Daniel vs Dalarna – tidstips</h1>
       </div>
+
       <div style="display:flex; gap:10px; align-items:center;">
         <button class="btn btn-ghost" id="openRulesBtn" type="button">📜 Regler</button>
         <button class="btn btn-ghost" id="openAdminBtn" type="button" style="display:none;">🔒 Admin</button>
@@ -318,8 +320,7 @@
           <h2 id="heroTitle">⛷️ Hur länge orkar Daniel?</h2>
           <p>
             Daniel har laddat med blåbärssoppa, tejpade stavar och ett självförtroende som pendlar mellan
-            “jag är odödlig” och “varför finns uppförsbackar”.
-            Hur länge orkar en köttbulle på skidor egentligen?
+            “jag är odödlig” och “varför finns uppförsbackar”. Hur länge orkar en köttbulle på skidor egentligen?
             <br><br>
             Din uppgift: gissa <b>hur länge</b> han håller ut.
           </p>
@@ -333,6 +334,9 @@
             Tips: skriv tiden som <span class="kbd">HH:MM:SS</span> (t.ex. <span class="kbd">07:12:00</span>).
             Gratis att delta. 1 gissning per person.
           </p>
+          <p class="hint">
+            Admin: öppna med <span class="kbd">?admin=1&key=REXEL2026</span> (eller klicka 5 ggr på rubriken).
+          </p>
         </div>
       </div>
 
@@ -341,7 +345,7 @@
         <ul>
           <li><b>Gratis</b>. Du gissar en gång.</li>
           <li>Vinnare = den som är <b>närmast</b> Daniels officiella tid.</li>
-          <li>Om Daniel bryter/går in i väggen: vi använder tiden vid <b>sista officiella kontroll</b>.</li>
+          <li>Om Daniel bryter: vi använder tiden vid <b>sista officiella kontroll</b>.</li>
         </ul>
       </div>
     </section>
@@ -351,14 +355,14 @@
       <div class="card-header">
         <div class="titleblock">
           <h2>🧾 Lägg din gissning</h2>
-          <p>Fyll i namn, mobilnummer, din gissade tid – och gärna en rolig kommentar 😄</p>
+          <p>Fyll i namn, mobilnummer och din gissade tid. En gissning per mobilnummer.</p>
         </div>
       </div>
 
       <div class="card-body">
         <div id="gameStatusBox" style="border:1px solid var(--border); border-radius:12px; padding:12px; margin-bottom:12px;">
           <div style="font-weight:900;">⏳ Status</div>
-          <div id="gameStatusText" style="margin-top:6px; font-weight:800;">Laddar…</div>
+          <div id="gameStatusText" style="margin-top:6px; font-weight:800;">Laddar tider…</div>
           <div class="hint" id="gameStatusHint" style="margin-top:6px;"></div>
         </div>
 
@@ -371,7 +375,7 @@
             <div>
               <label for="phone">Mobilnummer</label>
               <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="07XXXXXXXX" required />
-              <div class="hint">Används bara för att kontakta vinnaren & stoppa dubbla gissningar.</div>
+              <div class="hint">Används för att kontakta vinnaren och hindra fler gissningar.</div>
             </div>
           </div>
 
@@ -379,24 +383,23 @@
             <div>
               <label for="timeGuess">Gissad tid (HH:MM:SS)</label>
               <input id="timeGuess" name="timeGuess" type="text" inputmode="numeric" placeholder="07:12:00" required />
-              <div class="hint">Exakt format: HH:MM:SS</div>
+              <div class="hint">Format: HH:MM:SS.</div>
             </div>
             <div>
-              <label for="comment">Rolig kommentar (valfritt)</label>
-              <input id="comment" name="comment" type="text" maxlength="120"
-                     placeholder="Typ: ‘Daniel drivs av ren vilja och kexchoklad…’" />
-              <div class="hint">Max 120 tecken. Håll det snällt 😊</div>
+              <label for="consent">Godkännande</label>
+              <div style="display:flex; align-items:flex-start; gap:10px; margin-top:8px;">
+                <input id="consent" name="consent" type="checkbox" style="width:auto; transform: scale(1.2);" required />
+                <span style="font-size:14px; color:var(--muted); line-height:1.35;">
+                  Jag godkänner reglerna och att vi sparar mina uppgifter för att kunna kontakta vinnaren.
+                </span>
+              </div>
             </div>
           </div>
 
           <div>
-            <label for="consent">Godkännande</label>
-            <div style="display:flex; align-items:flex-start; gap:10px; margin-top:8px;">
-              <input id="consent" name="consent" type="checkbox" style="width:auto; transform: scale(1.2);" required />
-              <span style="font-size:14px; color:var(--muted); line-height:1.35;">
-                Jag godkänner reglerna och att vi sparar mina uppgifter för att kunna kontakta vinnaren.
-              </span>
-            </div>
+            <label for="comment">Rolig kommentar (valfritt)</label>
+            <textarea id="comment" name="comment" maxlength="180" placeholder="Skriv något kul… (max 180 tecken)"></textarea>
+            <div class="hint">Syns i listan (topp 10 / alla).</div>
           </div>
 
           <button class="btn btn-primary" type="submit" id="submitBtn">✅ Skicka min gissning</button>
@@ -405,7 +408,7 @@
           <div class="alert err" id="errAlert"></div>
 
           <div class="hint" style="margin-top:10px;">
-            Gissningar skickas till Google Sheets via Apps Script (live leaderboard).
+            Data sparas i Google Sheets via Apps Script (web app).
           </div>
         </form>
       </div>
@@ -418,26 +421,24 @@
           <h2>📊 Nuvarande ställning</h2>
           <p>Topp 10 just nu. Klicka <b>Utöka</b> för att se alla deltagare.</p>
           <p class="hint" id="liveMeta">Laddar…</p>
-
           <div class="cta-row" style="margin-top:10px;">
             <button class="btn btn-primary" type="button" id="refreshLiveBtn">🔄 Uppdatera</button>
             <button class="btn btn-ghost" type="button" id="toggleAllBtn">➕ Utöka</button>
           </div>
         </div>
       </div>
-
       <div class="card-body">
         <div id="top10Box" style="display:grid; gap:10px;"></div>
         <div id="allBox" style="display:none; margin-top:14px;"></div>
       </div>
     </section>
 
-    <!-- ADMIN PANEL (hidden) -->
+    <!-- ADMIN PANEL -->
     <section class="card" id="adminCard" style="display:none;">
       <div class="card-header">
         <div class="titleblock">
           <h2>🔒 Admin</h2>
-          <p>Här kan du sätta start/bettingstopp/official tid (kräver stöd i Apps Script).</p>
+          <p>Här kan du räkna vinnare (lokalt) och radera gissningar i Google Sheets.</p>
         </div>
       </div>
 
@@ -445,22 +446,9 @@
         <div class="form" style="margin-top:0;">
           <div class="grid-2">
             <div>
-              <label for="startTime">Starttid (ISO)</label>
-              <input id="startTime" type="text" placeholder="2026-03-01 08:00:00" />
-              <div class="hint">Format: YYYY-MM-DD HH:MM:SS</div>
-            </div>
-            <div>
-              <label for="betCloseTime">Bettingstopp (ISO)</label>
-              <input id="betCloseTime" type="text" placeholder="2026-03-01 07:55:00" />
-              <div class="hint">Format: YYYY-MM-DD HH:MM:SS</div>
-            </div>
-          </div>
-
-          <div class="grid-2">
-            <div>
-              <label for="officialTime">Officiell tid (HH:MM:SS)</label>
-              <input id="officialTime" type="text" placeholder="07:18:42" />
-              <div class="hint">Sätt när resultatet är klart.</div>
+              <label for="danielTime">Daniels tid (HH:MM:SS)</label>
+              <input id="danielTime" type="text" inputmode="numeric" placeholder="07:18:42" />
+              <div class="hint">Använd exakt format HH:MM:SS.</div>
             </div>
             <div>
               <label for="adminNote">Notering (valfritt)</label>
@@ -469,13 +457,9 @@
           </div>
 
           <div class="cta-row" style="margin-top:8px;">
-            <button class="btn btn-primary" type="button" id="saveSettingsBtn">💾 Spara tider</button>
-            <button class="btn btn-ghost" type="button" id="refreshAdminBtn">🔄 Hämta nuvarande</button>
-          </div>
-
-          <div class="cta-row" style="margin-top:8px;">
             <button class="btn btn-primary" type="button" id="calcWinnerBtn">🏆 Räkna vinnare</button>
-            <button class="btn btn-ghost" type="button" id="exportBtn">⬇️ Exportera gissningar (CSV)</button>
+            <button class="btn btn-ghost" type="button" id="exportBtn">⬇️ Exportera (CSV)</button>
+            <button class="btn btn-ghost" type="button" id="clearLocalBtn">🧹 Rensa lokalt</button>
           </div>
 
           <div class="alert ok" id="adminOk" style="display:none;"></div>
@@ -483,13 +467,13 @@
 
           <div class="card" style="margin-top:12px; border-radius:14px;">
             <div class="card-body" style="padding:14px;">
-              <div style="font-weight:800; margin-bottom:6px;">Resultat</div>
+              <div style="font-weight:800; margin-bottom:6px;">Resultat (lokalt)</div>
               <div id="winnerBox" style="color:var(--muted); line-height:1.5;">Inget uträknat ännu.</div>
             </div>
           </div>
 
           <div class="hint" style="margin-top:10px;">
-            Admin visas när du öppnar sidan med <span class="kbd">?admin=1</span> i URL.
+            Radera gissning: använd 🗑️-knappen i listan (syns bara i admin-läge).
           </div>
         </div>
       </div>
@@ -497,7 +481,7 @@
   </main>
 
   <div class="footer">
-    <div><b>Integritet:</b> Namn + telefon används bara för att kontakta vinnaren. Kommentarer ska hållas snälla. Allt rensas efter tävlingen.</div>
+    <div><b>Integritet:</b> Namn och telefon används för att administrera tävlingen och kontakta vinnaren. Raderas efter avslutad tävling.</div>
   </div>
 
   <!-- Rules Modal -->
@@ -508,21 +492,17 @@
         <button class="close" id="closeRulesBtn" type="button">Stäng ✕</button>
       </div>
       <div class="modal-body">
-        <p style="margin-top:0;color:var(--muted);line-height:1.6">
-          Enkelt, tydligt och utan krångel.
-        </p>
+        <p style="margin-top:0;color:var(--muted);line-height:1.6">Enkelt, tydligt och utan krångel.</p>
 
         <h4 style="margin:16px 0 8px;">1) Så här gör du</h4>
         <ol style="margin:0; padding-left:18px; color:var(--muted); line-height:1.6">
           <li>Gissa Daniels tid i <b>HH:MM:SS</b>.</li>
-          <li>Fyll i namn + telefonnummer (+ valfri kommentar).</li>
+          <li>Fyll i namn + telefonnummer.</li>
           <li>Skicka in – klart.</li>
         </ol>
 
         <h4 style="margin:16px 0 8px;">2) En gissning</h4>
-        <p style="margin:0;color:var(--muted);line-height:1.6">
-          Gratis att delta. Du får lämna <b>en (1)</b> gissning per mobilnummer.
-        </p>
+        <p style="margin:0;color:var(--muted);line-height:1.6">Gratis att delta. Du får lämna <b>en (1)</b> gissning per mobilnummer.</p>
 
         <h4 style="margin:16px 0 8px;">3) Hur räknas tiden?</h4>
         <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.6">
@@ -533,26 +513,25 @@
 
         <h4 style="margin:16px 0 8px;">4) Vinnare</h4>
         <p style="margin:0;color:var(--muted);line-height:1.6">
-          Den som gissar <b>närmast</b> vinner priset. Vid exakt lika: först inskickad gissning vinner.
-        </p>
-
-        <h4 style="margin:16px 0 8px;">5) Personuppgifter</h4>
-        <p style="margin:0;color:var(--muted);line-height:1.6">
-          Namn och telefon används för att administrera tävlingen och kontakta vinnaren.
+          Den som gissar <b>närmast</b> vinner. Vid exakt lika: först inskickad gissning vinner.
         </p>
       </div>
     </div>
   </div>
 
   <script>
-    // ===================== CONFIG =====================
+    // ================== KONFIG ==================
+    // Din Apps Script Web App endpoint (din länk)
     const LIVE_ENDPOINT = "https://script.google.com/macros/s/AKfycbxL30c5qw0KL_4QyNkyyjoN2lhZlonT0kHJ0oIX7a_UxstK0-osjvHOQsSpD0dOpb2r/exec";
 
-    // ===================== HELPERS =====================
+    // ================== BAS ==================
     const $ = (id) => document.getElementById(id);
+    const params = new URLSearchParams(location.search);
+    const ADMIN_MODE = params.get("admin") === "1";
+    const ADMIN_KEY  = params.get("key") || "";
 
     function escapeHtml(str){
-      return String(str || "").replace(/[&<>"']/g, (c)=>({
+      return String(str).replace(/[&<>"']/g, c => ({
         "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
       }[c]));
     }
@@ -577,35 +556,11 @@
       return `${pad(h)}:${pad(m)}:${pad(s)}`;
     }
 
-    function parseStartDateTime(str){
-      if(!str) return null;
-      const s = String(str).trim().replace(" ", "T");
-      const d = new Date(s);
-      if(Number.isNaN(d.getTime())) return null;
-      return d;
+    function makeId(){
+      return (crypto?.randomUUID) ? crypto.randomUUID() : String(Date.now()) + "-" + Math.random().toString(16).slice(2);
     }
 
-    function formatClock(sec){
-      const h = Math.floor(sec/3600);
-      const m = Math.floor((sec%3600)/60);
-      const s = sec%60;
-      const pad = (n)=> String(n).padStart(2,"0");
-      return `${pad(h)}:${pad(m)}:${pad(s)}`;
-    }
-
-    function fmtDiff(absSeconds){
-      const m = Math.floor(absSeconds/60);
-      const s = absSeconds%60;
-      const pad = (n)=> String(n).padStart(2,"0");
-      if(m >= 60){
-        const h = Math.floor(m/60);
-        const mm = m%60;
-        return `${pad(h)}:${pad(mm)}:${pad(s)}`;
-      }
-      return `${pad(m)}:${pad(s)}`;
-    }
-
-    // ===================== MODAL + BUTTONS =====================
+    // ================== MODAL + UI ==================
     const rulesModal = $("rulesModal");
     $("openRulesBtn").addEventListener("click", ()=> rulesModal.classList.add("show"));
     $("closeRulesBtn").addEventListener("click", ()=> rulesModal.classList.remove("show"));
@@ -628,11 +583,34 @@
       }catch(_){}
     });
 
-    // ===================== STATUS (BETTING/START) =====================
+    // ================== STATUS / NEDRÄKNING ==================
     let phaseInterval = null;
 
+    function parseStartDateTime(str){
+      if(!str) return null;
+      const s = String(str).trim().replace(" ", "T");
+      const d = new Date(s);
+      if(Number.isNaN(d.getTime())) return null;
+      return d;
+    }
+
+    function formatClock(sec){
+      const h = Math.floor(sec/3600);
+      const m = Math.floor((sec%3600)/60);
+      const s = sec%60;
+      const pad = (n)=> String(n).padStart(2,"0");
+      return `${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+
+    function setStatus(text, hint){
+      const t = $("gameStatusText");
+      const h = $("gameStatusHint");
+      if(t) t.textContent = text;
+      if(h) h.textContent = hint || "";
+    }
+
     function lockBetting(msg){
-      ["name","phone","timeGuess","comment","consent"].forEach(id => {
+      ["name","phone","timeGuess","consent","comment"].forEach(id => {
         const el = $(id);
         if(el) el.disabled = true;
       });
@@ -645,7 +623,7 @@
     }
 
     function unlockBetting(){
-      ["name","phone","timeGuess","comment","consent"].forEach(id => {
+      ["name","phone","timeGuess","consent","comment"].forEach(id => {
         const el = $(id);
         if(el) el.disabled = false;
       });
@@ -656,13 +634,6 @@
       }
     }
 
-    function setStatus(text, hint){
-      const t = $("gameStatusText");
-      const h = $("gameStatusHint");
-      if(t) t.textContent = text;
-      if(h) h.textContent = hint || "";
-    }
-
     function startPhaseClock({startDate, closeDate, official_time}){
       if(phaseInterval) clearInterval(phaseInterval);
 
@@ -670,8 +641,8 @@
         const now = new Date();
 
         if(official_time){
-          lockBetting("🏁 Loppet är avgjort – betting stängd.");
-          setStatus("🏁 Slutresultat", "Leaderboard visar slutställning.");
+          lockBetting("🏁 Betting stängd – loppet är avgjort.");
+          setStatus("🏁 Loppet är avgjort", "Leaderboard visar slutställning.");
           return;
         }
 
@@ -686,14 +657,14 @@
         if(now < effectiveClose){
           const secLeft = Math.max(0, Math.floor((effectiveClose - now)/1000));
           unlockBetting();
-          setStatus("🟢 Betting öppen", `Betting stänger om ${formatClock(secLeft)}.`);
+          setStatus("🟢 Betting öppen", `Betting stänger om ${formatClock(secLeft)} (HH:MM:SS).`);
           return;
         }
 
         if(now >= effectiveClose && now < startDate){
           const secToStart = Math.max(0, Math.floor((startDate - now)/1000));
           lockBetting("⛔ Betting stängd");
-          setStatus("⛔ Betting stängd", `Start om ${formatClock(secToStart)}.`);
+          setStatus("⛔ Betting stängd", `Start om ${formatClock(secToStart)} (HH:MM:SS).`);
           return;
         }
 
@@ -706,8 +677,115 @@
       phaseInterval = setInterval(tick, 1000);
     }
 
-    // ===================== LIVE DASHBOARD =====================
+    // ================== ADMIN VISNING ==================
+    (function adminToggleSetup(){
+      const adminBtn = $("openAdminBtn");
+      const adminCard = $("adminCard");
+      if(!adminBtn || !adminCard) return;
+
+      // Visa admin-knapp om URL har ?admin=1
+      if(ADMIN_MODE) adminBtn.style.display = "inline-flex";
+
+      adminBtn.addEventListener("click", ()=>{
+        const hidden = (adminCard.style.display === "none" || !adminCard.style.display);
+        adminCard.style.display = hidden ? "block" : "none";
+        if(hidden) adminCard.scrollIntoView({behavior:"smooth", block:"start"});
+      });
+
+      // 5-klick på rubrik öppnar admin också (om man råkar sakna URL)
+      let clicks = 0;
+      let t = null;
+      const heroTitle = $("heroTitle");
+      if(heroTitle){
+        heroTitle.style.cursor = "pointer";
+        heroTitle.addEventListener("click", ()=>{
+          clicks++;
+          clearTimeout(t);
+          t = setTimeout(()=> clicks = 0, 1200);
+          if(clicks >= 5){
+            adminCard.style.display = "block";
+            adminCard.scrollIntoView({behavior:"smooth", block:"start"});
+            clicks = 0;
+          }
+        });
+      }
+    })();
+
+    // ================== SUBMIT (POST) ==================
+    function showOk(msg){
+      $("okAlert").textContent = msg;
+      $("errAlert").textContent = "";
+      $("errAlert").style.display = "none";
+      $("okAlert").style.display = "block";
+    }
+    function showErr(msg){
+      $("errAlert").textContent = msg;
+      $("okAlert").textContent = "";
+      $("okAlert").style.display = "none";
+      $("errAlert").style.display = "block";
+    }
+
+    $("guessForm").addEventListener("submit", async (e)=>{
+      e.preventDefault();
+
+      const name = ($("name").value || "").trim();
+      const phone = normalizePhone($("phone").value);
+      const timeStr = ($("timeGuess").value || "").trim();
+      const consent = $("consent").checked;
+      const comment = ($("comment").value || "").trim();
+
+      if(!name) return showErr("Skriv ditt namn.");
+      if(!phone || phone.length < 9) return showErr("Skriv ett giltigt mobilnummer.");
+      if(!consent) return showErr("Du måste godkänna reglerna för att delta.");
+
+      const seconds = parseHHMMSS(timeStr);
+      if(seconds === null) return showErr("Tiden måste vara HH:MM:SS (t.ex. 07:12:00).");
+
+      const entry = {
+        action: "add",
+        id: makeId(),
+        name,
+        phone,
+        comment,
+        guess_seconds: seconds,
+        guess_time: formatHHMMSS(seconds),
+        created_at: new Date().toISOString()
+      };
+
+      try{
+        const res = await fetch(LIVE_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type":"application/json" },
+          body: JSON.stringify(entry)
+        });
+        const data = await res.json();
+        if(!data.ok) throw new Error(data.error || "Kunde inte spara gissningen.");
+
+        showOk(`Klart! ✅ Din gissning är skickad: ${entry.guess_time}.`);
+        $("submitBtn").disabled = true;
+        $("submitBtn").textContent = "🔒 Gissning inskickad";
+        ["name","phone","timeGuess","consent","comment"].forEach(id => $(id).disabled = true);
+
+        await updateDashboard();
+      }catch(err){
+        showErr("Kunde inte skicka gissningen. Försök igen.");
+      }
+    });
+
+    // ================== LIVE DASHBOARD ==================
     let showAll = false;
+
+    function fmtDiff(absSeconds){
+      const m = Math.floor(absSeconds/60);
+      const s = absSeconds%60;
+      const pad = (n)=> String(n).padStart(2,"0");
+      if(m >= 60){
+        const h = Math.floor(m/60);
+        const mm = m%60;
+        return `${pad(h)}:${pad(mm)}:${pad(s)}`;
+      }
+      return `${pad(m)}:${pad(s)}`;
+    }
 
     function renderRows(rows, targetEl, limit=null){
       const list = (limit ? rows.slice(0, limit) : rows);
@@ -719,16 +797,22 @@
 
       targetEl.innerHTML = list.map((r, idx)=>`
         <div style="border:1px solid var(--border); border-radius:12px; padding:12px; display:flex; justify-content:space-between; gap:10px;">
-          <div style="min-width:0;">
-            <div style="font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-              #${idx+1} ${escapeHtml(r.name)}
-            </div>
-            <div class="hint">Gissning: <b>${escapeHtml(r.guess_time)}</b></div>
-            ${r.comment ? `<div class="hint">💬 “${escapeHtml(r.comment)}”</div>` : ``}
+          <div>
+            <div style="font-weight:800;">#${idx+1} ${escapeHtml(r.name || "")}</div>
+            <div class="hint">Gissning: <b>${escapeHtml(r.guess_time || "")}</b></div>
+            ${r.comment ? `<div class="hint">💬 ${escapeHtml(r.comment)}</div>` : ``}
           </div>
+
           <div style="text-align:right;">
-            <div style="font-weight:900;">${fmtDiff(r.absDiff)}</div>
-            <div class="hint">${r.absDiff} sek</div>
+            ${typeof r.absDiff === "number" ? `
+              <div style="font-weight:900;">${fmtDiff(r.absDiff)}</div>
+              <div class="hint">${r.absDiff} sek</div>
+            ` : ``}
+
+            ${ADMIN_MODE ? `
+              <button class="btn btn-ghost" type="button" style="margin-top:8px; padding:8px 10px;"
+                onclick="deleteGuess('${encodeURIComponent(String(r.id || ""))}')">🗑️ Radera</button>
+            ` : ``}
           </div>
         </div>
       `).join("");
@@ -749,280 +833,213 @@
         meta.textContent = "Laddar…";
         const data = await fetchLiveData();
 
-        // Status / tider
+        // status-klocka (start/bet-close/official)
         const startDate = parseStartDateTime(data.start_time || null);
         const closeDate = parseStartDateTime(data.bet_close_time || null);
         startPhaseClock({ startDate, closeDate, official_time: data.official_time || null });
 
-        const officialStr = data.official_time; // "HH:MM:SS" or null
+        const officialStr = data.official_time;
         const officialSec = officialStr ? parseHHMMSS(officialStr) : null;
 
-        const guesses = data.guesses || [];
+        const guesses = (data.guesses || []).map(g => ({
+          id: String(g.id || ""),
+          name: String(g.name || ""),
+          phone: String(g.phone || ""),
+          comment: String(g.comment || ""),
+          guess_time: String(g.guess_time || ""),
+          guess_seconds: Number(g.guess_seconds || 0),
+          created_at: String(g.created_at || "")
+        }));
 
-        // Om ingen officiell tid: visa bara gissningar i inskick-ordning (eller tid)
         if(officialSec === null){
           meta.innerHTML = `Officiell tid: <b>inte satt ännu</b> • Deltagare: <b>${guesses.length}</b>`;
-          const rows = guesses.map(g => ({
-            name: g.name || "Okänd",
-            guess_time: g.guess_time || (typeof g.guess_seconds === "number" ? formatHHMMSS(g.guess_seconds) : ""),
-            comment: g.comment || "",
-            absDiff: 0,
-            created_at: g.created_at || ""
-          }));
+          // visa listan sorterad på guess_seconds (valfritt)
+          const rows = guesses
+            .filter(g => Number.isFinite(g.guess_seconds))
+            .sort((a,b)=> a.guess_seconds - b.guess_seconds)
+            .map(g => ({...g, absDiff: 0}));
+
           renderRows(rows, top10Box, 10);
           allBox.style.display = showAll ? "block" : "none";
           if(showAll) renderRows(rows, allBox, null);
           return;
         }
 
-        // Ranking mot officiell tid
         const ranked = guesses.map(g=>{
-          const guessSec = (typeof g.guess_seconds === "number") ? g.guess_seconds : parseHHMMSS(g.guess_time);
-          const diff = (typeof guessSec === "number") ? Math.abs(guessSec - officialSec) : 999999;
-          return {
-            name: g.name || "Okänd",
-            guess_time: g.guess_time || (typeof guessSec === "number" ? formatHHMMSS(guessSec) : ""),
-            comment: g.comment || "",
-            absDiff: diff,
-            created_at: g.created_at || ""
-          };
+          const guessSec = Number.isFinite(g.guess_seconds) ? g.guess_seconds : parseHHMMSS(g.guess_time);
+          const absDiff = Math.abs((guessSec||0) - officialSec);
+          return { ...g, absDiff };
         }).sort((a,b)=>{
           if(a.absDiff !== b.absDiff) return a.absDiff - b.absDiff;
           return (Date.parse(a.created_at)||0) - (Date.parse(b.created_at)||0);
         });
 
-        meta.innerHTML = `Officiell tid: <b>${officialStr}</b> • Deltagare: <b>${ranked.length}</b>`;
+        meta.innerHTML = `Officiell tid: <b>${escapeHtml(officialStr)}</b> • Deltagare: <b>${ranked.length}</b>`;
         renderRows(ranked, top10Box, 10);
 
         allBox.style.display = showAll ? "block" : "none";
         if(showAll) renderRows(ranked, allBox, null);
+
       }catch(e){
-        meta.textContent = "Kunde inte ladda ställningen (nätfel eller endpoint).";
+        meta.textContent = "Kunde inte ladda ställningen. (endpoint/nätfel)";
         top10Box.innerHTML = `<div class="hint">${escapeHtml(String(e.message || e))}</div>`;
       }
     }
 
-    $("refreshLiveBtn").addEventListener("click", updateDashboard);
-    $("toggleAllBtn").addEventListener("click", ()=>{
+    $("refreshLiveBtn")?.addEventListener("click", updateDashboard);
+    $("toggleAllBtn")?.addEventListener("click", ()=>{
       showAll = !showAll;
       $("toggleAllBtn").textContent = showAll ? "➖ Minimera" : "➕ Utöka";
       updateDashboard();
     });
 
-    // ===================== SUBMIT (SEND TO SHEETS) =====================
-    function showOk(msg){
-      $("okAlert").textContent = msg;
-      $("errAlert").textContent = "";
-      $("errAlert").style.display = "none";
-      $("okAlert").style.display = "block";
-    }
-    function showErr(msg){
-      $("errAlert").textContent = msg;
-      $("okAlert").textContent = "";
-      $("okAlert").style.display = "none";
-      $("errAlert").style.display = "block";
-    }
-    function lockFormSubmitted(){
-      ["name","phone","timeGuess","comment","consent"].forEach(id => {
-        const el = $(id);
-        if(el) el.disabled = true;
-      });
-      $("submitBtn").disabled = true;
-      $("submitBtn").textContent = "🔒 Gissning inskickad";
-    }
+    // ================== DELETE (ADMIN) ==================
+    async function deleteGuess(idEnc){
+      const id = decodeURIComponent(idEnc || "");
+      if(!id) return alert("Saknar id på raden (kan inte radera).");
 
-    $("guessForm").addEventListener("submit", async (e)=>{
-      e.preventDefault();
-
-      const name = ($("name").value || "").trim();
-      const phone = normalizePhone($("phone").value);
-      const timeStr = ($("timeGuess").value || "").trim();
-      const comment = ($("comment").value || "").trim();
-      const consent = $("consent").checked;
-
-      if(!name) return showErr("Skriv ditt namn.");
-      if(!phone || phone.length < 9) return showErr("Skriv ett giltigt mobilnummer.");
-      if(!consent) return showErr("Du måste godkänna reglerna för att delta.");
-      if(comment.length > 120) return showErr("Kommentaren får max vara 120 tecken.");
-
-      const seconds = parseHHMMSS(timeStr);
-      if(seconds === null) return showErr("Tiden måste vara i formatet HH:MM:SS (t.ex. 07:12:00).");
-
-      const entry = {
-        name,
-        phone,
-        comment,
-        guess_seconds: seconds,
-        guess_time: formatHHMMSS(seconds),
-        created_at: new Date().toISOString()
-      };
+      if(!ADMIN_KEY) return alert("Admin-nyckel saknas i URL:en. Lägg till ?admin=1&key=REXEL2026");
+      if(!confirm("Radera denna gissning?")) return;
 
       try{
         const res = await fetch(LIVE_ENDPOINT, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "submit_guess", ...entry })
+          headers: { "Content-Type":"application/json" },
+          body: JSON.stringify({ action:"delete", id, adminKey: ADMIN_KEY })
         });
         const data = await res.json();
-        if(!data.ok) throw new Error(data.error || "Kunde inte spara gissningen.");
-
-        showOk(`Klart! ✅ Din gissning är skickad: ${entry.guess_time}.`);
-        lockFormSubmitted();
-        updateDashboard();
-      }catch(err){
-        showErr("Kunde inte skicka gissningen. Kontrollera endpoint / Apps Script och försök igen.");
+        if(!data.ok) throw new Error(data.error || "Delete failed");
+        await updateDashboard();
+        alert("Raderad ✅");
+      }catch(e){
+        alert("Kunde inte radera: " + (e.message || e));
       }
-    });
+    }
+    window.deleteGuess = deleteGuess; // behövs för onclick
 
-    // ===================== ADMIN VISIBILITY + ACTIONS =====================
-    (function adminInit(){
-      const adminBtn = $("openAdminBtn");
-      const adminCard = $("adminCard");
-      if(!adminBtn || !adminCard) return;
+    // ================== ADMIN: VINNARE (LOKALT) + CSV ==================
+    (function adminTools(){
+      const adminOk = $("adminOk");
+      const adminErr = $("adminErr");
+      const winnerBox = $("winnerBox");
 
-      const params = new URLSearchParams(location.search);
-      const isAdmin = params.get("admin") === "1";
-      if(isAdmin){
-        adminBtn.style.display = "inline-flex";
-        adminCard.style.display = "block";
+      function ok(msg){
+        if(adminOk){ adminOk.textContent = msg; adminOk.style.display="block"; }
+        if(adminErr){ adminErr.style.display="none"; }
+      }
+      function err(msg){
+        if(adminErr){ adminErr.textContent = msg; adminErr.style.display="block"; }
+        if(adminOk){ adminOk.style.display="none"; }
       }
 
-      adminBtn.addEventListener("click", ()=>{
-        const hidden = (adminCard.style.display === "none" || !adminCard.style.display);
-        adminCard.style.display = hidden ? "block" : "none";
-        if(hidden) adminCard.scrollIntoView({behavior:"smooth", block:"start"});
-      });
+      function maskPhone(p){
+        const ph = normalizePhone(p);
+        if(ph.length <= 4) return ph;
+        return ph.slice(0,3) + "****" + ph.slice(-2);
+      }
+
+      let lastLiveGuesses = []; // från senaste updateDashboard()
+
+      async function refreshCache(){
+        const data = await fetchLiveData();
+        lastLiveGuesses = (data.guesses || []);
+        return data;
+      }
+
+      async function calcWinner(){
+        try{
+          const danielStr = ($("danielTime").value || "").trim();
+          const note = ($("adminNote").value || "").trim();
+          const danielSec = parseHHMMSS(danielStr);
+          if(danielSec === null) return err("Daniels tid måste vara HH:MM:SS (t.ex. 07:18:42).");
+
+          await refreshCache();
+          const all = lastLiveGuesses;
+          if(!all.length) return err("Inga gissningar ännu.");
+
+          let best = null;
+          for(const g of all){
+            const guessSec = Number(g.guess_seconds) || parseHHMMSS(g.guess_time);
+            if(typeof guessSec !== "number") continue;
+            const diff = guessSec - danielSec;
+            const abs = Math.abs(diff);
+            const created = Date.parse(g.created_at || "") || Number.MAX_SAFE_INTEGER;
+
+            const entry = {...g, guessSec, diff, abs, created};
+            if(!best) best = entry;
+            else if(entry.abs < best.abs) best = entry;
+            else if(entry.abs === best.abs && entry.created < best.created) best = entry;
+          }
+          if(!best) return err("Kunde inte räkna (saknar giltiga gissningar).");
+
+          const sign = best.diff < 0 ? "-" : "+";
+          const d = Math.abs(best.diff);
+          const mm = Math.floor((d%3600)/60);
+          const ss = d%60;
+          const pad = (n)=> String(n).padStart(2,"0");
+
+          winnerBox.innerHTML = `
+            <div><b>Daniels tid:</b> ${escapeHtml(formatHHMMSS(danielSec))} ${note ? `<span style="color:var(--muted)">(${escapeHtml(note)})</span>` : ""}</div>
+            <div style="margin-top:8px;"><b>Vinnare:</b> ${escapeHtml(best.name || "Okänd")} (${escapeHtml(maskPhone(best.phone || ""))})</div>
+            <div><b>Gissning:</b> ${escapeHtml(best.guess_time || formatHHMMSS(best.guessSec))}</div>
+            <div><b>Avvikelse:</b> ${sign}${pad(mm)}:${pad(ss)} (${best.abs} sek)</div>
+          `;
+          ok("Vinnare uträknad ✅");
+        }catch(e){
+          err(String(e.message || e));
+        }
+      }
+
+      async function exportCSV(){
+        try{
+          await refreshCache();
+          const all = lastLiveGuesses;
+          if(!all.length) return err("Inga gissningar att exportera.");
+
+          const header = ["id","name","phone","guess_time","guess_seconds","comment","created_at"];
+          const rows = [header.join(",")];
+
+          for(const g of all){
+            const row = [
+              (g.id||""),
+              (g.name||""),
+              (g.phone||""),
+              (g.guess_time||""),
+              String(g.guess_seconds ?? ""),
+              (g.comment||""),
+              (g.created_at||"")
+            ].map(v => `"${String(v).replaceAll('"','""')}"`);
+            rows.push(row.join(","));
+          }
+
+          const blob = new Blob([rows.join("\n")], {type:"text/csv;charset=utf-8;"});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "gissningar.csv";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          ok("CSV exporterat ✅");
+        }catch(e){
+          err(String(e.message || e));
+        }
+      }
+
+      function clearLocal(){
+        // denna sida sparar inte lokalt längre, men vi kan ändå tömma formuläret
+        ["name","phone","timeGuess","comment"].forEach(id => { if($(id)) $(id).value = ""; });
+        if($("consent")) $("consent").checked = false;
+        ok("Rensat formulär ✅");
+      }
+
+      $("calcWinnerBtn")?.addEventListener("click", calcWinner);
+      $("exportBtn")?.addEventListener("click", exportCSV);
+      $("clearLocalBtn")?.addEventListener("click", clearLocal);
     })();
 
-    function adminOk(msg){
-      $("adminOk").textContent = msg;
-      $("adminErr").style.display = "none";
-      $("adminOk").style.display = "block";
-    }
-    function adminErr(msg){
-      $("adminErr").textContent = msg;
-      $("adminOk").style.display = "none";
-      $("adminErr").style.display = "block";
-    }
-
-    $("refreshAdminBtn")?.addEventListener("click", async ()=>{
-      try{
-        const data = await fetchLiveData();
-        $("startTime").value = data.start_time || "";
-        $("betCloseTime").value = data.bet_close_time || "";
-        $("officialTime").value = data.official_time || "";
-        $("adminNote").value = data.note || "";
-        adminOk("Hämtat ✅");
-      }catch(e){
-        adminErr("Kunde inte hämta admin-data från endpoint.");
-      }
-    });
-
-    $("saveSettingsBtn")?.addEventListener("click", async ()=>{
-      const payload = {
-        action: "set_settings",
-        start_time: ($("startTime").value || "").trim(),
-        bet_close_time: ($("betCloseTime").value || "").trim(),
-        official_time: ($("officialTime").value || "").trim(),
-        note: ($("adminNote").value || "").trim(),
-      };
-
-      try{
-        const res = await fetch(LIVE_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        if(!data.ok) throw new Error(data.error || "Misslyckades.");
-        adminOk("Sparat ✅");
-        updateDashboard();
-      }catch(e){
-        adminErr("Kunde inte spara (Apps Script saknar kanske stöd för set_settings).");
-      }
-    });
-
-    $("calcWinnerBtn")?.addEventListener("click", async ()=>{
-      try{
-        const data = await fetchLiveData();
-        const officialStr = data.official_time;
-        const officialSec = officialStr ? parseHHMMSS(officialStr) : null;
-        if(officialSec === null) return adminErr("Sätt officiell tid först.");
-
-        const guesses = data.guesses || [];
-        if(!guesses.length) return adminErr("Inga gissningar.");
-
-        let best = null;
-        for(const g of guesses){
-          const guessSec = (typeof g.guess_seconds === "number") ? g.guess_seconds : parseHHMMSS(g.guess_time);
-          if(typeof guessSec !== "number") continue;
-          const abs = Math.abs(guessSec - officialSec);
-          const created = Date.parse(g.created_at || "") || Number.MAX_SAFE_INTEGER;
-
-          const entry = { ...g, guessSec, abs, created };
-          if(!best) best = entry;
-          else if(entry.abs < best.abs) best = entry;
-          else if(entry.abs === best.abs && entry.created < best.created) best = entry;
-        }
-        if(!best) return adminErr("Kunde inte räkna.");
-
-        const mask = (p)=>{
-          const ph = normalizePhone(p);
-          if(ph.length <= 4) return ph;
-          return ph.slice(0,3) + "****" + ph.slice(-2);
-        };
-
-        $("winnerBox").innerHTML = `
-          <div><b>Officiell tid:</b> ${escapeHtml(officialStr)}</div>
-          <div style="margin-top:8px;"><b>Vinnare:</b> ${escapeHtml(best.name || "Okänd")} (${escapeHtml(mask(best.phone || ""))})</div>
-          <div><b>Gissning:</b> ${escapeHtml(best.guess_time || formatHHMMSS(best.guessSec))}</div>
-          <div><b>Avvikelse:</b> ${best.abs} sek</div>
-          ${best.comment ? `<div class="hint" style="margin-top:6px;">💬 “${escapeHtml(best.comment)}”</div>` : ``}
-        `;
-        adminOk("Vinnare uträknad ✅");
-      }catch(e){
-        adminErr("Kunde inte räkna (endpoint-fel).");
-      }
-    });
-
-    $("exportBtn")?.addEventListener("click", async ()=>{
-      try{
-        const data = await fetchLiveData();
-        const guesses = data.guesses || [];
-        if(!guesses.length) return adminErr("Inga gissningar att exportera.");
-
-        const header = ["name","phone","guess_time","guess_seconds","comment","created_at"];
-        const rows = [header.join(",")];
-
-        for(const g of guesses){
-          const row = [
-            (g.name||"").replaceAll('"','""'),
-            (g.phone||"").replaceAll('"','""'),
-            (g.guess_time||"").replaceAll('"','""'),
-            String(g.guess_seconds ?? ""),
-            (g.comment||"").replaceAll('"','""'),
-            (g.created_at||"").replaceAll('"','""')
-          ].map(v => `"${v}"`);
-          rows.push(row.join(","));
-        }
-
-        const blob = new Blob([rows.join("\n")], {type:"text/csv;charset=utf-8;"});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "gissningar.csv";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-
-        adminOk("CSV exporterat ✅");
-      }catch(e){
-        adminErr("Kunde inte exportera (endpoint-fel).");
-      }
-    });
-
-    // Init
+    // ================== START ==================
     updateDashboard();
   </script>
 </body>
