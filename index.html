@@ -858,6 +858,9 @@ async function updateDashboard(){
   try{
     meta.textContent = "Laddar…";
     const data = await fetchLiveData();
+    const startDate = parseStartDateTime(data.start_time || null);
+const closeDate = parseStartDateTime(data.bet_close_time || null);
+startPhaseClock({ startDate, closeDate, official_time: data.official_time || null });
 
     const officialStr = data.official_time; // "HH:MM:SS" eller null
     const officialSec = officialStr ? parseHHMMSS(officialStr) : null;
