@@ -151,12 +151,6 @@
       background: linear-gradient(90deg, #ffda4b, var(--accent));
       color:#1e1e1e;
     }
-<div id="gameStatusBox" style="border:1px solid var(--border); border-radius:12px; padding:12px; margin-bottom:12px;">
-  <div style="font-weight:900;">⏳ Status</div>
-  <div id="gameStatusText" style="margin-top:6px; font-weight:800;">Laddar tider…</div>
-  <div class="hint" id="gameStatusHint" style="margin-top:6px;"></div>
-</div>
-
     .form{
       display:grid;
       gap:12px;
@@ -356,7 +350,15 @@
       </div>
 
       <div class="card-body">
-        <form class="form" id="guessForm" autocomplete="on" novalidate>
+
+  <div id="gameStatusBox" style="border:1px solid var(--border); border-radius:12px; padding:12px; margin-bottom:12px;">
+    <div style="font-weight:900;">⏳ Status</div>
+    <div id="gameStatusText" style="margin-top:6px; font-weight:800;">Laddar tider…</div>
+    <div class="hint" id="gameStatusHint" style="margin-top:6px;"></div>
+  </div>
+
+  <form class="form" id="guessForm" autocomplete="on" novalidate>
+
           <div class="grid-2">
             <div>
               <label for="name">Namn</label>
@@ -447,9 +449,6 @@
       </div>
     </section>
 <!-- LIVE DASHBOARD -->
-<section class="card" id="liveCard">
-  <div class="card-header">
-    <div class="titleblock">
       <h2>📊 Nuvarande ställning</h2>
       <p>
         Topp 10 just nu. Klicka <b>Utöka</b> för att se alla deltagare.
@@ -624,13 +623,31 @@
 
       const all = loadAllGuesses();
       const entry = {
-        name,
-        phone,
-        guess_seconds: seconds,
-        guess_time: formatHHMMSS(seconds),
-        created_at: new Date().toISOString()
-      // Skicka till Google Sheets
+  name,
+  phone,
+  guess_seconds: seconds,
+  guess_time: formatHHMMSS(seconds),
+  created_at: new Date().toISOString()
+};
+
+// Skicka till Google Sheets
 fetch(LIVE_ENDPOINT, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(entry)
+})
+.then(res => res.json())
+.then(data => {
+  if(!data.ok) throw new Error("Kunde inte spara gissningen.");
+
+  showOk(`Klart! ✅ Din gissning är skickad: ${entry.guess_time}. Nu återstår bara att Daniel… står ut. 😅`);
+  lockForm();
+  updateDashboard(); // uppdatera listan direkt
+})
+.catch(err => {
+  showErr("Kunde inte skicka gissningen. Försök igen.");
+});
+
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(entry)
