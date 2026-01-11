@@ -1126,6 +1126,25 @@ function startPhaseClock({startDate, closeDate, official_time}){
   tick();
   phaseInterval = setInterval(tick, 1000);
 }
+// ===== ADMIN TOGGLE (knapp + hemlig länk) =====
+(function(){
+  const adminBtn = document.getElementById("openAdminBtn");
+  const adminCard = document.getElementById("adminCard");
+  if(!adminBtn || !adminCard) return;
+
+  // Visa Admin-knappen om du har ?admin=1 i URL:en
+  const params = new URLSearchParams(location.search);
+  const isAdmin = params.get("admin") === "1";
+  if(isAdmin){
+    adminBtn.style.display = "inline-flex";
+  }
+
+  adminBtn.addEventListener("click", ()=>{
+    const hidden = (adminCard.style.display === "none" || !adminCard.style.display);
+    adminCard.style.display = hidden ? "block" : "none";
+    if(hidden) adminCard.scrollIntoView({behavior:"smooth", block:"start"});
+  });
+})();
 
   </script>
 </body>
